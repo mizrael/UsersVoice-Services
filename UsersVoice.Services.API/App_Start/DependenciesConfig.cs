@@ -59,16 +59,14 @@ namespace UsersVoice.Services.API
             {
                 var repoFactory = container.GetInstance<IRepositoryFactory>();
                 var connString = ConfigurationManager.ConnectionStrings["Commands"].ConnectionString;
-                var dbName = "usersvoice_commands";
-                return new CommandsDbContext(repoFactory, connString, dbName);
+                return new CommandsDbContext(repoFactory, connString);
             });
 
             container.Register<IQueriesDbContext>(() =>
             {
                 var repoFactory = container.GetInstance<IRepositoryFactory>();
                 var connString = ConfigurationManager.ConnectionStrings["Queries"].ConnectionString;
-                var dbName = "usersvoice_queries";
-                return new QueriesDbContext(repoFactory, connString, dbName);
+                return new QueriesDbContext(repoFactory, connString);
             });
 
             RegisterMediator(container);

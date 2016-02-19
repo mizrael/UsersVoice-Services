@@ -1,28 +1,32 @@
 ﻿using System;
 using MongoDB.Driver;
+using MongoDB.Driver.Core.Configuration;
 using UsersVoice.Infrastructure.Mongo.Queries.Entities;
 
 namespace UsersVoice.Infrastructure.Mongo.Queries
 {
     public class QueriesDbContext : IQueriesDbContext
     {
-        public QueriesDbContext(IRepositoryFactory repoFactory, string connectionString, string dbName)
+        public QueriesDbContext(IRepositoryFactory repoFactory, string connectionString)
         {
             if (string.IsNullOrWhiteSpace(connectionString))
                 throw new ArgumentNullException("connectionString");
-            if (string.IsNullOrWhiteSpace(dbName))
-                throw new ArgumentNullException("dbName");
 
-            this.Users = repoFactory.Create<User>(new RepositoryOptions(connectionString, dbName, "users"));
-            this.Areas = repoFactory.Create<Area>(new RepositoryOptions(connectionString, dbName, "areas"));
+            if (string.IsNullOrWhiteSpace(connectionString))
+                throw new ArgumentNullException("connectionString");
 
-            this.Ideas = repoFactory.Create<Idea>(new RepositoryOptions(connectionString, dbName, "ideas"));
+            var connStr = new ConnectionString(connectionString);
+
+            this.Users = repoFactory.Create<User>(new RepositoryOptions(connectionString, connStr.DatabaseName, "users"));
+            this.Areas = repoFactory.Create<Area>(new RepositoryOptions(connectionString, connStr.DatabaseName, "areas"));
+
+            this.Ideas = repoFactory.Create<Idea>(new RepositoryOptions(connectionString, connStr.DatabaseName, "ideas"));
             var ideaIndexBuilder = new IndexKeysDefinitionBuilder<Idea>();
             this.Ideas.CreateIndex(ideaIndexBuilder.Ascending(i => i.AuthorId));
             this.Ideas.CreateIndex(ideaIndexBuilder.Ascending(i => i.AreaId));
             this.Ideas.CreateIndex(ideaIndexBuilder.Ascending(i => i.CreationDate));
 
-            this.IdeaComments = repoFactory.Create<IdeaComment>(new RepositoryOptions(connectionString, dbName, "ideaComments"));
+            this.IdeaComments = repoFactory.Create<IdeaComment>(new RepositoryOptions(connectionString, connStr.DatabaseName, "ideaComments"));
             var commentsIndexBuilder = new IndexKeysDefinitionBuilder<IdeaComment>();
             this.IdeaComments.CreateIndex(commentsIndexBuilder.Ascending(i => i.IdeaId));
             this.IdeaComments.CreateIndex(commentsIndexBuilder.Ascending(i => i.AuthorId));

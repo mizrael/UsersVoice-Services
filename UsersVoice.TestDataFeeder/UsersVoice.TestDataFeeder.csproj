@@ -67,6 +67,12 @@
     <Compile Include="RandomTextGenerator.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="config\connectionStrings.dev.config">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="config\connectionStrings.local.config">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
