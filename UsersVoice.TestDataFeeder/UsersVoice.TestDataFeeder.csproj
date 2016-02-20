@@ -77,14 +77,6 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\UsersVoice.Services.API.CQRS.Mongo\UsersVoice.Services.API.CQRS.Mongo.csproj">
-      <Project>{CF8E6F2E-4C2C-4889-AF48-EE4E4B4719D7}</Project>
-      <Name>UsersVoice.Services.API.CQRS.Mongo</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\UsersVoice.Services.API.CQRS\UsersVoice.Services.API.CQRS.csproj">
-      <Project>{E347B9E9-1CBC-4E9B-B0FB-73C45FC0C379}</Project>
-      <Name>UsersVoice.Services.API.CQRS</Name>
-    </ProjectReference>
     <ProjectReference Include="..\UsersVoice.Services.Infrastructure.Mongo\UsersVoice.Services.Infrastructure.Mongo.csproj">
       <Project>{5395D906-E7CE-44D2-9A48-789F38A0B989}</Project>
       <Name>UsersVoice.Services.Infrastructure.Mongo</Name>

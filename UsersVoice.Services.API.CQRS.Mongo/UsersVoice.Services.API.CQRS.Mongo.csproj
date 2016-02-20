@@ -89,7 +89,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\UsersVoice.Services.API.CQRS\UsersVoice.Services.API.CQRS.csproj">
-      <Project>{e347b9e9-1cbc-4e9b-b0fb-73c45fc0c379}</Project>
+      <Project>{E347B9E9-1CBC-4E9B-B0FB-73C45FC0C379}</Project>
       <Name>UsersVoice.Services.API.CQRS</Name>
     </ProjectReference>
     <ProjectReference Include="..\UsersVoice.Services.Common.CQRS\UsersVoice.Services.Common.CQRS.csproj">
