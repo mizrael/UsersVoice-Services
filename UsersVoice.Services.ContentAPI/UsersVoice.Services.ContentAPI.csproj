@@ -90,6 +90,14 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App_Data\userAvatars\10352579_10203471548296911_1027763207567736067_n.jpg" />
+    <Content Include="App_Data\userAvatars\12631381_10208044660901868_2619025018087800944_n.jpg" />
+    <Content Include="App_Data\userAvatars\1277087_10201704386038959_759837629_o.jpg" />
+    <Content Include="App_Data\userAvatars\1920029_10203421577847681_7611641563390442354_n.jpg" />
+    <Content Include="App_Data\userAvatars\1979606_10203072494200808_677480095_n.jpg" />
+    <Content Include="App_Data\userAvatars\2.jpg" />
+    <Content Include="App_Data\userAvatars\296565_4332226191393_18328725_n.jpg" />
+    <Content Include="App_Data\userAvatars\934074_10200923516357705_325732319_n.jpg" />
     <Content Include="packages.config" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -101,7 +109,9 @@
   <ItemGroup>
     <Content Include="App_Data\userAvatars\1.JPG" />
     <Content Include="Global.asax" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ApiControllers\UserAvatarController.cs" />
