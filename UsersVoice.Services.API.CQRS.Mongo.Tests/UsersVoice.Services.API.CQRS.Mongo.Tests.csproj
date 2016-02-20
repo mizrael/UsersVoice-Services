@@ -106,9 +106,21 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\UsersVoice.Services.API.CQRS.Mongo\UsersVoice.Services.API.CQRS.Mongo.csproj">
+      <Project>{CF8E6F2E-4C2C-4889-AF48-EE4E4B4719D7}</Project>
+      <Name>UsersVoice.Services.API.CQRS.Mongo</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\UsersVoice.Services.API.CQRS\UsersVoice.Services.API.CQRS.csproj">
+      <Project>{e347b9e9-1cbc-4e9b-b0fb-73c45fc0c379}</Project>
+      <Name>UsersVoice.Services.API.CQRS</Name>
+    </ProjectReference>
     <ProjectReference Include="..\UsersVoice.Services.Infrastructure.Common\UsersVoice.Services.Infrastructure.Common.csproj">
       <Project>{e711ad99-5b71-415b-920e-fd05ac3aa7c8}</Project>
       <Name>UsersVoice.Services.Infrastructure.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\UsersVoice.Services.Infrastructure.Mongo.Tests\UsersVoice.Services.Infrastructure.Mongo.Tests.csproj">
+      <Project>{C53C683A-9AFD-4BE6-B97C-AD2B1181F6E9}</Project>
+      <Name>UsersVoice.Services.Infrastructure.Mongo.Tests</Name>
     </ProjectReference>
     <ProjectReference Include="..\UsersVoice.Services.Infrastructure.Mongo\UsersVoice.Services.Infrastructure.Mongo.csproj">
       <Project>{5395d906-e7ce-44d2-9a48-789f38a0b989}</Project>
