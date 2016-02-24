@@ -9,8 +9,9 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>UsersVoice.Services.Common.CQRS</RootNamespace>
     <AssemblyName>UsersVoice.Services.Common.CQRS</AssemblyName>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -30,6 +31,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="MediatR, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\MediatR.2.0.2\lib\net45\MediatR.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -39,11 +44,21 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Commands\ValidationCommandHandlerDecorator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Queries\IQuery.cs" />
     <Compile Include="Queries\IQueryDefinition.cs" />
     <Compile Include="Queries\IQueryDefinitionFactory.cs" />
     <Compile Include="Queries\IQueryRunner.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\UsersVoice.Services.Infrastructure.Common\UsersVoice.Services.Infrastructure.Common.csproj">
+      <Project>{E711AD99-5B71-415B-920E-FD05AC3AA7C8}</Project>
+      <Name>UsersVoice.Services.Infrastructure.Common</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

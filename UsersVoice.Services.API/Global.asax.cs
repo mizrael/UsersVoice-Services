@@ -12,7 +12,7 @@ namespace UsersVoice.Services.API
             GlobalConfiguration.Configure(WebApiConfig.Register);
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
-            //BundleConfig.RegisterBundles(BundleTable.Bundles);
+            MapperConfig.RegisterMappers();
             DependenciesConfig.Register(GlobalConfiguration.Configuration);
 
             GlobalConfiguration.Configuration.IncludeErrorDetailPolicy = IncludeErrorDetailPolicy.Always;

@@ -18,8 +18,10 @@ using UsersVoice.Services.API.CQRS.Mongo.Queries.Runners;
 using UsersVoice.Services.API.CQRS.Queries;
 using UsersVoice.Services.API.CQRS.Queries.Handlers;
 using UsersVoice.Services.API.CQRS.Queries.Models;
+using UsersVoice.Services.Common.CQRS.Commands;
 using UsersVoice.Services.Common.CQRS.Queries;
 using UsersVoice.Services.Infrastructure.Common;
+using UsersVoice.Services.Infrastructure.Common.Validation;
 
 namespace UsersVoice.Services.API
 {
@@ -27,8 +29,6 @@ namespace UsersVoice.Services.API
     {
         public static void Register(HttpConfiguration config)
         {
-            RegisterMappers();
-
             RegisterDependencies(config);
         }
 
@@ -38,10 +38,6 @@ namespace UsersVoice.Services.API
             container.RegisterWebApiControllers(config);
 
             RegisterInfrastructure(container);
-
-            var assemblies = GetAssemblies().ToArray();
-            container.Register(typeof (IAsyncRequestHandler<,>), assemblies);
-            container.RegisterCollection(typeof (IAsyncNotificationHandler<>), assemblies);
 
             RegisterHandlers(container);
 
@@ -54,6 +50,7 @@ namespace UsersVoice.Services.API
         {
             container.RegisterSingleton<IMongoDatabaseFactory, MongoDatabaseFactory>();
             container.RegisterSingleton<IRepositoryFactory, RepositoryFactory>();
+            container.RegisterSingleton<IMongoQueryExecutor, MongoQueryExecutor>();
 
             container.Register<ICommandsDbContext>(() =>
             {
@@ -80,25 +77,17 @@ namespace UsersVoice.Services.API
             container.RegisterSingleton(new MultiInstanceFactory(container.GetAllInstances));
         }
 
-        private static void RegisterMappers()
-        {
-            AutoMapper.Mapper.CreateMap<User, UserArchiveItem>();
-            AutoMapper.Mapper.CreateMap<User, UserDetails>();
-
-            AutoMapper.Mapper.CreateMap<Area, AreaArchiveItem>();
-            AutoMapper.Mapper.CreateMap<Area, AreaDetails>();
-
-            AutoMapper.Mapper.CreateMap<Idea, IdeaArchiveItem>();
-            AutoMapper.Mapper.CreateMap<Idea, IdeaDetails>();
-
-            AutoMapper.Mapper.CreateMap<IdeaComment, IdeaCommentArchiveItem>();
-        }
-
         #region Handlers
 
         private static void RegisterHandlers(Container container)
         {
-            container.RegisterSingleton<IMongoQueryExecutor, MongoQueryExecutor>();
+            var assemblies = GetAssemblies().ToArray();
+            container.Register(typeof(IAsyncRequestHandler<,>), assemblies);
+            container.RegisterCollection(typeof(IAsyncNotificationHandler<>), assemblies);
+            container.Register(typeof(IValidator<>), assemblies);
+            container.RegisterConditional(typeof(IValidator<>), typeof(NullValidator<>), c => !c.Handled);
+
+            container.RegisterDecorator(typeof(IAsyncNotificationHandler<>), typeof(ValidationCommandHandlerDecorator<>));
 
             RegisterUserHandlers(container);
             RegisterAreaHandlers(container);

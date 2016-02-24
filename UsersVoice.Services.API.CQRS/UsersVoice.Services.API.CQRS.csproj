@@ -9,8 +9,9 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>UsersVoice.Services.API.CQRS</RootNamespace>
     <AssemblyName>UsersVoice.Services.API.CQRS</AssemblyName>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -49,9 +50,11 @@
     <Compile Include="Commands\CreateIdea.cs" />
     <Compile Include="Commands\UnvoteIdea.cs" />
     <Compile Include="Commands\ChangeIdeaStatus.cs" />
+    <Compile Include="Commands\CreateTag.cs" />
     <Compile Include="Commands\VoteIdea.cs" />
     <Compile Include="Events\AreaCreated.cs" />
     <Compile Include="Events\IdeaCommentCreated.cs" />
+    <Compile Include="Events\TagCreated.cs" />
     <Compile Include="Events\IdeaUnvoted.cs" />
     <Compile Include="Events\IdeaStatusChanged.cs" />
     <Compile Include="Events\IVoteNotification.cs" />
@@ -78,6 +81,7 @@
     <Compile Include="Queries\IdeaDetailsQuery.cs" />
     <Compile Include="Queries\UsersArchiveQuery.cs" />
     <Compile Include="Queries\UserDetailsQuery.cs" />
+    <Compile Include="Validators\CreateTagCommandValidator.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
