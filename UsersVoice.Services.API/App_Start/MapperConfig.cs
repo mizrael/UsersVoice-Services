@@ -17,6 +17,8 @@ namespace UsersVoice.Services.API
             AutoMapper.Mapper.CreateMap<Idea, IdeaDetails>();
 
             AutoMapper.Mapper.CreateMap<IdeaComment, IdeaCommentArchiveItem>();
+
+            AutoMapper.Mapper.CreateMap<Tag, TagArchiveItem>();
         }
     }
 }

@@ -14,6 +14,8 @@ namespace UsersVoice.Infrastructure.Mongo
         Task<long> CountAsync(FilterDefinition<TEntity> filter);
         IFindFluent<TEntity, TEntity> Find(FilterDefinition<TEntity> filter);
         IFindFluent<TEntity, TEntity> Find(Expression<Func<TEntity, bool>> filter);
+        Task<IAsyncCursor<TEntity>> FindAsync(Expression<Func<TEntity, bool>> filter);
+
         Task<TEntity> FindOneAndReplaceAsync(FilterDefinition<TEntity> filter, TEntity replacement);
         Task<TEntity> FindOneAndReplaceAsync(Expression<Func<TEntity, bool>> filter, TEntity replacement);
 

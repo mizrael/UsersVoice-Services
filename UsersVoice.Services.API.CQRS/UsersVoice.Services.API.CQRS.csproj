@@ -68,14 +68,15 @@
     <Compile Include="Queries\AreasArchiveQuery.cs" />
     <Compile Include="Queries\IdeaCommentsArchiveQuery.cs" />
     <Compile Include="Queries\HasVotedQuery.cs" />
+    <Compile Include="Queries\TagsArchiveQuery.cs" />
     <Compile Include="Queries\IdeasArchiveQuery.cs" />
     <Compile Include="Queries\Enums.cs" />
-    <Compile Include="Queries\IMapper.cs" />
     <Compile Include="Queries\Models\AreaArchiveItem.cs" />
     <Compile Include="Queries\Models\AreaDetails.cs" />
     <Compile Include="Queries\Models\IdeaCommentArchiveItem.cs" />
     <Compile Include="Queries\Models\IdeaDetails.cs" />
     <Compile Include="Queries\Models\IdeaArchiveItem.cs" />
+    <Compile Include="Queries\Models\TagArchiveItem.cs" />
     <Compile Include="Queries\Models\UserDetails.cs" />
     <Compile Include="Queries\Models\UserArchiveItem.cs" />
     <Compile Include="Queries\IdeaDetailsQuery.cs" />
@@ -94,6 +95,10 @@
     <ProjectReference Include="..\UsersVoice.Services.Infrastructure.Common\UsersVoice.Services.Infrastructure.Common.csproj">
       <Project>{e711ad99-5b71-415b-920e-fd05ac3aa7c8}</Project>
       <Name>UsersVoice.Services.Infrastructure.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\UsersVoice.Services.Infrastructure.Mongo\UsersVoice.Services.Infrastructure.Mongo.csproj">
+      <Project>{5395D906-E7CE-44D2-9A48-789F38A0B989}</Project>
+      <Name>UsersVoice.Services.Infrastructure.Mongo</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -8,5 +8,6 @@ namespace UsersVoice.Infrastructure.Mongo.Queries
         IRepository<Idea> Ideas { get; }
         IRepository<IdeaComment> IdeaComments { get; }
         IRepository<Area> Areas { get; }
+        IRepository<Tag> Tags { get; }
     }
 }

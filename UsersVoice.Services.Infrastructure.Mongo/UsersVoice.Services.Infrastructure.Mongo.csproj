@@ -117,11 +117,13 @@
     <Compile Include="Queries\Entities\Area.cs" />
     <Compile Include="Queries\Entities\Idea.cs" />
     <Compile Include="Queries\Entities\IdeaComment.cs" />
+    <Compile Include="Queries\Entities\Tag.cs" />
     <Compile Include="Queries\Entities\User.cs" />
     <Compile Include="Queries\IQueriesDbContext.cs" />
     <Compile Include="Queries\MongoPagingQueryDefinition.cs" />
     <Compile Include="Queries\MongoQueryDefinition.cs" />
     <Compile Include="Queries\QueriesDbContext.cs" />
+    <Compile Include="Queries\SortingBuilder.cs" />
     <Compile Include="Repository.cs" />
     <Compile Include="RepositoryFactory.cs" />
     <Compile Include="RepositoryOptions.cs" />

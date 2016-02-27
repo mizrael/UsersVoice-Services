@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
 
-namespace UsersVoice.Services.API.CQRS.Queries
+namespace UsersVoice.Services.Common.CQRS.Queries
 {
     public interface IMapper<in TEntity, TModel>
     {

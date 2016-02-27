@@ -1,9 +1,15 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace UsersVoice.Infrastructure.Mongo.Queries.Entities
 {
     public class User
     {
+        public User()
+        {
+            Tags = new List<Tag>();
+        }
+
         public Guid Id { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
@@ -18,5 +24,6 @@ namespace UsersVoice.Infrastructure.Mongo.Queries.Entities
         public int IdeasCount { get; set; }
         public int CommentsCount { get; set; }
         public bool IsAdmin { get; set; }
+        public IList<Tag> Tags { get; private set; }
     }
 }

@@ -39,6 +39,11 @@ namespace UsersVoice.Infrastructure.Mongo
             return _collection.Find(filter);
         }
 
+        public Task<IAsyncCursor<TEntity>> FindAsync(Expression<Func<TEntity, bool>> filter)
+        {
+            return _collection.FindAsync(filter);
+        }
+
         public Task<TEntity> FindOneAndReplaceAsync(FilterDefinition<TEntity> filter, TEntity replacement)
         {
             return _collection.FindOneAndReplaceAsync(filter, replacement);

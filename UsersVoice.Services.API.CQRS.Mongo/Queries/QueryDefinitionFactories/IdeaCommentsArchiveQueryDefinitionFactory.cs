@@ -6,7 +6,6 @@ using UsersVoice.Infrastructure.Mongo.Queries;
 using UsersVoice.Infrastructure.Mongo.Queries.Entities;
 using UsersVoice.Services.API.CQRS.Queries;
 using UsersVoice.Services.Common.CQRS.Queries;
-using SortDirection = UsersVoice.Services.API.CQRS.Queries.SortDirection;
 
 namespace UsersVoice.Services.API.CQRS.Mongo.Queries.QueryDefinitionFactories
 {
@@ -40,17 +39,7 @@ namespace UsersVoice.Services.API.CQRS.Mongo.Queries.QueryDefinitionFactories
                 filters.Add(authorIdFilter);
             }
 
-            SortDefinition<IdeaComment> sorting = null;
-            if (query.SortBy != IdeaCommentsSortBy.None)
-            {
-                var sortingBuilder = Builders<IdeaComment>.Sort;
-
-                var sortingField = GetSortingField(query.SortBy);
-
-                sorting = query.SortDirection == SortDirection.ASC
-                    ? sortingBuilder.Ascending(sortingField)
-                    : sortingBuilder.Descending(sortingField);
-            }
+            var sorting = SortingBuilder.BuildSorting(query.SortBy, query.SortDirection, GetSortingField);
 
             var filter = new MongoPagingQueryDefinition<IdeaComment>(_db.IdeaComments, builder.And(filters), query, sorting);
             return filter;

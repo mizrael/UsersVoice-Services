@@ -31,11 +31,14 @@ namespace UsersVoice.Infrastructure.Mongo.Queries
             this.IdeaComments.CreateIndex(commentsIndexBuilder.Ascending(i => i.IdeaId));
             this.IdeaComments.CreateIndex(commentsIndexBuilder.Ascending(i => i.AuthorId));
             this.IdeaComments.CreateIndex(commentsIndexBuilder.Ascending(i => i.CreationDate));
+
+            this.Tags = repoFactory.Create<Entities.Tag>(new RepositoryOptions(connectionString, connStr.DatabaseName, "tags"));
         }
 
         public IRepository<User> Users { get; private set; }
         public IRepository<Idea> Ideas { get; private set; }
         public IRepository<IdeaComment> IdeaComments { get; private set; }
         public IRepository<Area> Areas { get; private set; }
+        public IRepository<Entities.Tag> Tags { get; private set; }
     }
 }

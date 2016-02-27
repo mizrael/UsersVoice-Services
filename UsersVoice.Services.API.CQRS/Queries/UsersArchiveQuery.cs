@@ -1,22 +1,12 @@
-﻿using MediatR;
+﻿using UsersVoice.Infrastructure.Mongo.Queries;
 using UsersVoice.Services.API.CQRS.Queries.Models;
 using UsersVoice.Services.Common.CQRS.Queries;
-using UsersVoice.Services.Infrastructure.Common;
 
 namespace UsersVoice.Services.API.CQRS.Queries
 {
-    public class UsersArchiveQuery : IAsyncRequest<PagedCollection<UserArchiveItem>>, IQuery, IPagingInfo
+    public class UsersArchiveQuery : ArchiveQuery<UserArchiveItem>
     {
-        public UsersArchiveQuery() : this(0, 10) { }
-        public UsersArchiveQuery(int page, int pageSize)
-        {
-            this.Page = page;
-            this.PageSize = pageSize;
-        }
-
-        public int Page { get; set; }
-
-        public int PageSize { get; set; }
+        public UsersArchiveQuery() : base(0, 10) { }
 
         public string CompleteName { get; set; }
         

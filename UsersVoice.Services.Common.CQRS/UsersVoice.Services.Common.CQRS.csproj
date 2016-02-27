@@ -46,6 +46,8 @@
   <ItemGroup>
     <Compile Include="Commands\ValidationCommandHandlerDecorator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Queries\ArchiveQuery.cs" />
+    <Compile Include="Queries\IMapper.cs" />
     <Compile Include="Queries\IQuery.cs" />
     <Compile Include="Queries\IQueryDefinition.cs" />
     <Compile Include="Queries\IQueryDefinitionFactory.cs" />

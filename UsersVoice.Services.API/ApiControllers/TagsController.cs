@@ -23,5 +23,19 @@ namespace UsersVoice.Services.API.ApiControllers
             await _mediator.PublishAsync(command);
             return Ok();
         }
+
+        [HttpPost]
+        public async Task<IHttpActionResult> PostIdeaTag([FromBody]CreateIdeaTag command)
+        {
+            await _mediator.PublishAsync(command);
+            return Ok();
+        }
+
+        [HttpPost]
+        public async Task<IHttpActionResult> PostUserTag([FromBody]CreateUserTag command)
+        {
+            await _mediator.PublishAsync(command);
+            return Ok();
+        }
     }
 }

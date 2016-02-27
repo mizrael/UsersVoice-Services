@@ -39,17 +39,7 @@ namespace UsersVoice.Services.API.CQRS.Mongo.Queries.QueryDefinitionFactories
             if (!string.IsNullOrWhiteSpace(query.Email))
                 filters.Add(builder.Eq(v => v.Email, query.Email));
 
-            SortDefinition<User> sorting = null;
-            if (query.SortBy != UserSortBy.None)
-            {
-                var sortingBuilder = Builders<User>.Sort;
-
-                var sortingField = GetSortingField(query.SortBy);
-
-                sorting = query.SortDirection == CQRS.Queries.SortDirection.ASC
-                    ? sortingBuilder.Ascending(sortingField)
-                    : sortingBuilder.Descending(sortingField);
-            }
+            var sorting = SortingBuilder.BuildSorting(query.SortBy, query.SortDirection, GetSortingField);
 
             var filter = new MongoPagingQueryDefinition<User>(_db.Users, builder.And(filters), query, sorting);
             return filter;

@@ -10,7 +10,7 @@
     }
 
     public enum IdeaSortBy
-    {
+    {  
         None,
         Title,
         CreationDate,
@@ -31,9 +31,9 @@
         CreationDate
     }
 
-    public enum SortDirection
+    public enum TagSortBy
     {
-        ASC,
-        DESC
+        None,
+        Text,
     }
 }

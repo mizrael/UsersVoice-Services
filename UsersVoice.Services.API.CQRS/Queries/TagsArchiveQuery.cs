@@ -5,15 +5,17 @@ using UsersVoice.Services.Common.CQRS.Queries;
 
 namespace UsersVoice.Services.API.CQRS.Queries
 {
-    public class IdeaCommentsArchiveQuery : ArchiveQuery<IdeaCommentArchiveItem>
+    public class TagsArchiveQuery : ArchiveQuery<TagArchiveItem>
     {
-        public IdeaCommentsArchiveQuery() : base(0, 10)
+        public TagsArchiveQuery() : base(0, 10)
         {
         }
 
-        public Guid IdeaId { get; set; }
-        public Guid AuthorId { get; set; }
-        public IdeaCommentsSortBy SortBy { get; set; }
+        public string Text { get; set; }
+
+        public Guid TagId { get; set; }
+
+        public TagSortBy SortBy { get; set; }
         public SortDirection SortDirection { get; set; }
     }
 }

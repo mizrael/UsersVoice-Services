@@ -60,6 +60,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Commands\Handlers\CreateUserTagCommandHandler.cs" />
+    <Compile Include="Commands\Handlers\CreateIdeaTagCommandHandler.cs" />
     <Compile Include="Commands\Handlers\CreateTagCommandHandler.cs" />
     <Compile Include="Commands\Handlers\ImplementIdeaCommandHandler.cs" />
     <Compile Include="Commands\Handlers\ApproveIdeaCommandHandler.cs" />
@@ -72,6 +74,7 @@
     <Compile Include="Commands\Handlers\VoteIdeaCommandHandler.cs" />
     <Compile Include="Events\Handlers\AreaCreatedEventHandler.cs" />
     <Compile Include="Events\Handlers\IdeaCommentCreatedEventHandler.cs" />
+    <Compile Include="Events\Handlers\TagCreatedEventHandler.cs" />
     <Compile Include="Events\Handlers\IdeaStatusChangedCommandHandler.cs" />
     <Compile Include="Events\Handlers\UpdateUserPointsEventHandler.cs" />
     <Compile Include="Events\Handlers\UserCreatedEventHandler.cs" />
@@ -79,6 +82,7 @@
     <Compile Include="Events\Handlers\IdeaCreatedEventHandler.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Queries\Handlers\HasVotedQueryHandler.cs" />
+    <Compile Include="Queries\QueryDefinitionFactories\TagsArchiveQueryDefinitionFactory.cs" />
     <Compile Include="Queries\QueryDefinitionFactories\IdeaCommentsArchiveQueryDefinitionFactory.cs" />
     <Compile Include="Queries\Runners\DefaultArchiveQueryRunner.cs" />
     <Compile Include="Queries\QueryDefinitionFactories\AreaDetailsQueryDefinitionFactory.cs" />
@@ -88,6 +92,7 @@
     <Compile Include="Queries\QueryDefinitionFactories\UsersArchiveQueryDefinitionFactory.cs" />
     <Compile Include="Queries\Runners\DefaultDetailsQueryRunner.cs" />
     <Compile Include="Queries\QueryDefinitionFactories\UserDetailsQueryDefinitionFactory.cs" />
+    <Compile Include="Validators\CreateIdeaTagCommandValidator.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\UsersVoice.Services.API.CQRS\UsersVoice.Services.API.CQRS.csproj">

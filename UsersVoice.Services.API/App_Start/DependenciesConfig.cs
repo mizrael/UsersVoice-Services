@@ -92,12 +92,17 @@ namespace UsersVoice.Services.API
             RegisterUserHandlers(container);
             RegisterAreaHandlers(container);
             RegisterIdeaHandlers(container);
+            RegisterTagHandlers(container);
         }
 
         private static void RegisterUserHandlers(Container container)
         {
             RegisterArchiveHandlers<User, UsersArchiveQueryDefinitionFactory, UsersArchiveQuery, UserArchiveItem>(container);
             RegisterDetailsHandlers<User, UserDetailsQueryDefinitionFactory, UserDetailsQuery, UserDetails>(container);
+        }
+        private static void RegisterTagHandlers(Container container)
+        {
+            RegisterArchiveHandlers<Tag, TagsArchiveQueryDefinitionFactory, TagsArchiveQuery, TagArchiveItem>(container);
         }
 
         private static void RegisterAreaHandlers(Container container)

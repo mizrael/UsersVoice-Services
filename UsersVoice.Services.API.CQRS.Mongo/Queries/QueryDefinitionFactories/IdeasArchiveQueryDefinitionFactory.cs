@@ -8,7 +8,6 @@ using UsersVoice.Infrastructure.Mongo.Queries;
 using UsersVoice.Infrastructure.Mongo.Queries.Entities;
 using UsersVoice.Services.API.CQRS.Queries;
 using UsersVoice.Services.Common.CQRS.Queries;
-using SortDirection = UsersVoice.Services.API.CQRS.Queries.SortDirection;
 
 namespace UsersVoice.Services.API.CQRS.Mongo.Queries.QueryDefinitionFactories
 {
@@ -56,17 +55,7 @@ namespace UsersVoice.Services.API.CQRS.Mongo.Queries.QueryDefinitionFactories
                 filters.Add(areaIdFilter);
             }
 
-            SortDefinition<Idea> sorting = null;
-            if (query.SortBy != IdeaSortBy.None)
-            {
-                var sortingBuilder = Builders<Idea>.Sort;
-
-                var sortingField = GetSortingField(query.SortBy);
-
-                sorting = query.SortDirection == SortDirection.ASC
-                    ? sortingBuilder.Ascending(sortingField)
-                    : sortingBuilder.Descending(sortingField);
-            }
+            var sorting = SortingBuilder.BuildSorting(query.SortBy, query.SortDirection, GetSortingField);
 
             var queryDef = new MongoPagingQueryDefinition<Idea>(_db.Ideas, filterBuilder.And(filters), query, sorting);
             return queryDef;
@@ -76,13 +65,12 @@ namespace UsersVoice.Services.API.CQRS.Mongo.Queries.QueryDefinitionFactories
         {
             switch (sortBy)
             {
-                case IdeaSortBy.CreationDate:
-                default:
-                    return (Idea i) => i.CreationDate;
                 case IdeaSortBy.Points:
                     return (Idea i) => i.TotalPoints;
                 case IdeaSortBy.Title:
                     return (Idea i) => i.Title;
+                default:
+                    return (Idea i) => i.CreationDate;
             }
         }
     }
