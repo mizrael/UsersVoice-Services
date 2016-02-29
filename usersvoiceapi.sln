@@ -27,6 +27,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UsersVoice.Services.API.CQR
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UsersVoice.Services.Infrastructure.Mongo.Tests", "UsersVoice.Services.Infrastructure.Mongo.Tests\UsersVoice.Services.Infrastructure.Mongo.Tests.csproj", "{C53C683A-9AFD-4BE6-B97C-AD2B1181F6E9}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UsersVoice.Services.Common.CQRS.Tests", "UsersVoice.Services.Common.CQRS.Tests\UsersVoice.Services.Common.CQRS.Tests.csproj", "{FFD8A682-24D1-481B-9327-A2C8E8F7B6DD}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -69,6 +71,10 @@ Global
 		{C53C683A-9AFD-4BE6-B97C-AD2B1181F6E9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C53C683A-9AFD-4BE6-B97C-AD2B1181F6E9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C53C683A-9AFD-4BE6-B97C-AD2B1181F6E9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FFD8A682-24D1-481B-9327-A2C8E8F7B6DD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FFD8A682-24D1-481B-9327-A2C8E8F7B6DD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FFD8A682-24D1-481B-9327-A2C8E8F7B6DD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FFD8A682-24D1-481B-9327-A2C8E8F7B6DD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -83,5 +89,6 @@ Global
 		{5395D906-E7CE-44D2-9A48-789F38A0B989} = {02EA84F6-05EF-4A1C-8D71-5DFF8358C27C}
 		{F55F957F-C773-478C-B1B6-BEB64F1F4CDC} = {E1E786A8-6E4F-49EB-ACE1-0803D29BA3D1}
 		{C53C683A-9AFD-4BE6-B97C-AD2B1181F6E9} = {E1E786A8-6E4F-49EB-ACE1-0803D29BA3D1}
+		{FFD8A682-24D1-481B-9327-A2C8E8F7B6DD} = {E1E786A8-6E4F-49EB-ACE1-0803D29BA3D1}
 	EndGlobalSection
 EndGlobal

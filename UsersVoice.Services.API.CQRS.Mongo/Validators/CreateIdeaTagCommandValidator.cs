@@ -1,13 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using MongoDB.Driver;
 using UsersVoice.Infrastructure.Mongo.Commands;
 using UsersVoice.Services.API.CQRS.Commands;
-using UsersVoice.Services.Infrastructure.Common.Validation;
+using UsersVoice.Services.Infrastructure.Common;
 
 namespace UsersVoice.Services.API.CQRS.Mongo.Validators
 {

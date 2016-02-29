@@ -21,13 +21,14 @@ namespace UsersVoice.Services.API.CQRS.Mongo.Queries.QueryDefinitionFactories
         {
             if (null == query)
                 throw new ArgumentNullException("query");
-            if(query.Id == Guid.Empty)
+            if (query.UserId == Guid.Empty)
                 throw new ArgumentException("please provide a user id");
 
-            var builder = Builders<User>.Filter;
-            var filter = builder.Eq(v => v.Id, query.Id);
 
-            var queryDef = new MongoQueryDefinition<User>(_db.Users, filter);
+            var builder = new FilterDefinitionBuilder<Area>();
+
+            var queryDef = new MongoQueryDefinition<Area>(_db.Areas, builder.Eq(a => a.Id, query.UserId));
+            
             return queryDef;
         }
     }

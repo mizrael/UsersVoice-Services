@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Linq;
 using System.Threading.Tasks;
 using MediatR;
 using MongoDB.Driver;
@@ -23,7 +22,7 @@ namespace UsersVoice.Services.API.CQRS.Mongo.Commands.Handlers
             _bus = bus;
         }
 
-        public async Task Handle(CQRS.Commands.VoteIdea command)
+        public async Task Handle(VoteIdea command)
         {
             if (null == command)
                 throw new ArgumentNullException("command");
@@ -35,13 +34,6 @@ namespace UsersVoice.Services.API.CQRS.Mongo.Commands.Handlers
             var voter = await _commandsDb.Users.Find(d => d.Id == command.VoterId).FirstOrDefaultAsync();
             if (null == voter)
                 throw new ArgumentException("invalid voter id: " + command.VoterId);
-            
-            if (voter.AvailablePoints < command.Points)
-                throw new ArgumentOutOfRangeException("not enough points available for user " + command.VoterId);
-
-            var alreadyVoted = idea.Votes.Any(v => v.VoterId == voter.Id);
-            if(alreadyVoted)
-                throw new AccessViolationException("cannot vote twice!");
 
             idea.Votes.Add(new IdeaVote()
             {

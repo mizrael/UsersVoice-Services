@@ -11,9 +11,9 @@ namespace UsersVoice.Services.API.CQRS.Queries
         {
             if (id == Guid.Empty)
                 throw new ArgumentNullException("id");
-            this.Id = id;
+            this.AreaId = id;
         }
 
-        public Guid Id{ get; private set; }
+        public Guid AreaId { get; private set; }
     }
 }

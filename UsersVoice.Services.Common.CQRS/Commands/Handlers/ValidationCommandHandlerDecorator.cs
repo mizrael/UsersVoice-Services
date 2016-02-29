@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Threading.Tasks;
 using MediatR;
-using UsersVoice.Services.Infrastructure.Common.Validation;
+using UsersVoice.Services.Infrastructure.Common;
 
-namespace UsersVoice.Services.Common.CQRS.Commands
+namespace UsersVoice.Services.Common.CQRS.Commands.Handlers
 {
     public class ValidationCommandHandlerDecorator<TCommand> : IAsyncNotificationHandler<TCommand>
         where TCommand : IAsyncNotification
@@ -13,7 +13,7 @@ namespace UsersVoice.Services.Common.CQRS.Commands
 
         public ValidationCommandHandlerDecorator(IAsyncNotificationHandler<TCommand> handler, IValidator<TCommand> validator)
         {
-            if (handler == null) 
+            if (handler == null)
                 throw new ArgumentNullException("handler");
             _validator = validator;
             _handler = handler;
@@ -22,9 +22,18 @@ namespace UsersVoice.Services.Common.CQRS.Commands
         public async Task Handle(TCommand command)
         {
             if (null != _validator)
-                await _validator.ValidateAsync(command);
+            {
+                var result = await _validator.ValidateAsync(command);
+
+                if(null == result)
+                    throw new ValidationException(null, "Validation failed");
+
+                if(!result.Success)
+                    throw new ValidationException(result.Errors);
+            }
 
             await _handler.Handle(command);
         }
     }
+
 }

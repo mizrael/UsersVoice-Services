@@ -74,6 +74,8 @@
     <Compile Include="Commands\Handlers\VoteIdeaCommandHandler.cs" />
     <Compile Include="Events\Handlers\AreaCreatedEventHandler.cs" />
     <Compile Include="Events\Handlers\IdeaCommentCreatedEventHandler.cs" />
+    <Compile Include="Events\Handlers\UserTagCreatedEventHandler.cs" />
+    <Compile Include="Events\Handlers\IdeaTagCreatedEventHandler.cs" />
     <Compile Include="Events\Handlers\TagCreatedEventHandler.cs" />
     <Compile Include="Events\Handlers\IdeaStatusChangedCommandHandler.cs" />
     <Compile Include="Events\Handlers\UpdateUserPointsEventHandler.cs" />
@@ -92,6 +94,8 @@
     <Compile Include="Queries\QueryDefinitionFactories\UsersArchiveQueryDefinitionFactory.cs" />
     <Compile Include="Queries\Runners\DefaultDetailsQueryRunner.cs" />
     <Compile Include="Queries\QueryDefinitionFactories\UserDetailsQueryDefinitionFactory.cs" />
+    <Compile Include="Validators\VoteIdeaCommandValidator.cs" />
+    <Compile Include="Validators\CreateUserTagCommandValidator.cs" />
     <Compile Include="Validators\CreateIdeaTagCommandValidator.cs" />
   </ItemGroup>
   <ItemGroup>

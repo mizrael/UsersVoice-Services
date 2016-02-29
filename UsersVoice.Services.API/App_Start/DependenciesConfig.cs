@@ -18,10 +18,9 @@ using UsersVoice.Services.API.CQRS.Mongo.Queries.Runners;
 using UsersVoice.Services.API.CQRS.Queries;
 using UsersVoice.Services.API.CQRS.Queries.Handlers;
 using UsersVoice.Services.API.CQRS.Queries.Models;
-using UsersVoice.Services.Common.CQRS.Commands;
+using UsersVoice.Services.Common.CQRS.Commands.Handlers;
 using UsersVoice.Services.Common.CQRS.Queries;
 using UsersVoice.Services.Infrastructure.Common;
-using UsersVoice.Services.Infrastructure.Common.Validation;
 
 namespace UsersVoice.Services.API
 {

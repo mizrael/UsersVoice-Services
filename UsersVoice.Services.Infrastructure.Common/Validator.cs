@@ -1,10 +1,10 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace UsersVoice.Services.Infrastructure.Common.Validation
+namespace UsersVoice.Services.Infrastructure.Common
 {
-    public abstract class Validator<T> : IValidator<T>
+    public abstract class Validator<TCommand> : IValidator<TCommand>
     {
         private readonly List<ValidationError> _errors;
 
@@ -13,13 +13,14 @@ namespace UsersVoice.Services.Infrastructure.Common.Validation
             _errors = new List<ValidationError>();
         }
 
-        public async Task ValidateAsync(T command)
+        public async Task<ValidationResult> ValidateAsync(TCommand command)
         {
             await this.RunAsync(command);
 
             var errors = _errors.Where(e => null != e).ToArray();
-            if (errors.Any())
-                throw new ValidationException(errors);
+            var result = new ValidationResult(errors);
+
+            return result;
         }
 
         protected void AddError(ValidationError error)
@@ -27,6 +28,6 @@ namespace UsersVoice.Services.Infrastructure.Common.Validation
             _errors.Add(error);
         }
 
-        protected abstract Task RunAsync(T command);
+        protected abstract Task RunAsync(TCommand command);
     }
 }

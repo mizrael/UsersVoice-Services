@@ -21,13 +21,13 @@ namespace UsersVoice.Services.API.CQRS.Mongo.Queries.QueryDefinitionFactories
         {
             if (null == query)
                 throw new ArgumentNullException("query");
-            if(query.Id == Guid.Empty)
+            if(query.IdeaId == Guid.Empty)
                 throw new ArgumentException("please provide a video id");
 
-            var builder = Builders<Idea>.Filter;
-            var filter = builder.Eq(v => v.Id, query.Id);
+            var builder = new FilterDefinitionBuilder<Area>();
 
-            var queryDef = new MongoQueryDefinition<Idea>(_db.Ideas, filter);
+            var queryDef = new MongoQueryDefinition<Area>(_db.Areas, builder.Eq(a => a.Id, query.IdeaId));
+            
             return queryDef;
         }
     }

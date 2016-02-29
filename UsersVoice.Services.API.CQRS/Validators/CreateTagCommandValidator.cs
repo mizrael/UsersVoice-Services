@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 using UsersVoice.Services.API.CQRS.Commands;
-using UsersVoice.Services.Infrastructure.Common.Validation;
+using UsersVoice.Services.Infrastructure.Common;
 
 namespace UsersVoice.Services.API.CQRS.Validators
 {

@@ -7,13 +7,13 @@ namespace UsersVoice.Services.API.CQRS.Queries
 {
     public class IdeaDetailsQuery : IAsyncRequest<IdeaDetails>, IQuery
     {
-        public IdeaDetailsQuery(Guid id)
+        public IdeaDetailsQuery(Guid ideaId)
         {
-            if (id == Guid.Empty)
-                throw new ArgumentNullException("id");
-            this.Id = id;
+            if (ideaId == Guid.Empty)
+                throw new ArgumentNullException("ideaId");
+            this.IdeaId = ideaId;
         }
 
-        public Guid Id{ get; private set; }
+        public Guid IdeaId{ get; private set; }
     }
 }
