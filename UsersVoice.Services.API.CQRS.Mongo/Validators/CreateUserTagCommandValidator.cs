@@ -20,19 +20,20 @@ namespace UsersVoice.Services.API.CQRS.Mongo.Validators
         protected override async Task RunAsync(CreateIdeaTag command)
         {
             if (null == command)
+            {
                 AddError(new ValidationError("command cannot be null"));
+                return;
+            }
 
             if (Guid.Empty == command.TagId)
                 AddError(new ValidationError("tag id cannot be empty"));
+            else if (null == await _db.Tags.Find(i => i.Id == command.TagId).FirstOrDefaultAsync())
+                AddError(new ValidationError("invalid tag id: " + command.TagId));
 
             if (Guid.Empty == command.IdeaId)
                 AddError(new ValidationError("idea id cannot be empty"));
-
-            if(null == await _db.Ideas.Find(i => i.Id == command.IdeaId).FirstOrDefaultAsync())
+            else if(null == await _db.Ideas.Find(i => i.Id == command.IdeaId).FirstOrDefaultAsync())
                 AddError(new ValidationError("invalid idea id: " + command.IdeaId));
-
-            if (null == await _db.Tags.Find(i => i.Id == command.TagId).FirstOrDefaultAsync())
-                AddError(new ValidationError("invalid tag id: " + command.TagId));
         }
     }
 }

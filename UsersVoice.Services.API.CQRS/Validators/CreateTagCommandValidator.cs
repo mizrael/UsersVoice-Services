@@ -10,7 +10,11 @@ namespace UsersVoice.Services.API.CQRS.Validators
         protected override Task RunAsync(CreateTag command)
         {
             if (null == command)
+            {
                 AddError(new ValidationError("command cannot be null"));
+                return Task.CompletedTask;
+            }
+
             if(Guid.Empty == command.TagId)
                 AddError(new ValidationError("tag id cannot be empty"));
             if(string.IsNullOrWhiteSpace(command.Text))

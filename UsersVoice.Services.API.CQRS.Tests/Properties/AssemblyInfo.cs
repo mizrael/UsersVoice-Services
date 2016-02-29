@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("UsersVoice.Services.Common.CQRS.Tests")]
+[assembly: AssemblyTitle("UsersVoice.Services.API.CQRS.Tests")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("UsersVoice.Services.Common.CQRS.Tests")]
+[assembly: AssemblyProduct("UsersVoice.Services.API.CQRS.Tests")]
 [assembly: AssemblyCopyright("Copyright ©  2016")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("00963be6-253c-472e-8817-8580b6c26359")]
+[assembly: Guid("94deee0f-4fed-4c52-8cf1-e8f143ba2d75")]
 
 // Version information for an assembly consists of the following four values:
 //

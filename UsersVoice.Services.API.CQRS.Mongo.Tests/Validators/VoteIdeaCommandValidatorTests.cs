@@ -9,12 +9,9 @@ using UsersVoice.Infrastructure.Mongo;
 using UsersVoice.Infrastructure.Mongo.Commands;
 using UsersVoice.Infrastructure.Mongo.Commands.Entities;
 using UsersVoice.Services.API.CQRS.Commands;
-using UsersVoice.Services.API.CQRS.Mongo.Commands.Handlers;
 using UsersVoice.Services.API.CQRS.Mongo.Validators;
-using UsersVoice.Services.Infrastructure.Common;
 using UsersVoice.Services.Infrastructure.Mongo.Tests;
 using Xunit;
-using Assert = Xunit.Assert;
 
 namespace UsersVoice.Services.API.CQRS.Mongo.Tests.Validators
 {
@@ -120,6 +117,7 @@ namespace UsersVoice.Services.API.CQRS.Mongo.Tests.Validators
 
             var result = await sut.ValidateAsync(command);
             result.Success.ShouldBeEquivalentTo(true);
+            result.Errors.Should().BeEmpty();
         }
 
         private static VoteIdeaCommandValidator CreateSut(IEnumerable<Idea> ideas, IEnumerable<User> users)
