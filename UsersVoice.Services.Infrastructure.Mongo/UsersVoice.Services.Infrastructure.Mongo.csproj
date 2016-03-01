@@ -103,6 +103,7 @@
     <Compile Include="Commands\Entities\Area.cs" />
     <Compile Include="Commands\Entities\IdeaComment.cs" />
     <Compile Include="Commands\Entities\Idea.cs" />
+    <Compile Include="Commands\Entities\IEntity.cs" />
     <Compile Include="Commands\Entities\Tag.cs" />
     <Compile Include="Commands\Entities\User.cs" />
     <Compile Include="Commands\ICommandsDbContext.cs" />

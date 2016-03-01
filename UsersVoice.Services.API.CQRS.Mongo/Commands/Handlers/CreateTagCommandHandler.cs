@@ -1,14 +1,12 @@
 ﻿using System;
 using System.Threading.Tasks;
 using MediatR;
-using MongoDB.Driver;
 using UsersVoice.Infrastructure.Mongo.Commands;
 using UsersVoice.Infrastructure.Mongo.Services;
 using UsersVoice.Services.API.CQRS.Commands;
 using UsersVoice.Services.API.CQRS.Events;
 using UsersVoice.Services.Common.CQRS.Commands.Handlers;
 using UsersVoice.Services.Infrastructure.Common;
-using UsersVoice.Services.Infrastructure.Common.Services;
 using Tag = UsersVoice.Infrastructure.Mongo.Commands.Entities.Tag;
 
 namespace UsersVoice.Services.API.CQRS.Mongo.Commands.Handlers

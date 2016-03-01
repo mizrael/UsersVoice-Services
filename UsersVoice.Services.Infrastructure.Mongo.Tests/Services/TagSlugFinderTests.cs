@@ -1,12 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Linq.Expressions;
 using System.Threading.Tasks;
 using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
-using UsersVoice.Infrastructure.Mongo;
 using UsersVoice.Infrastructure.Mongo.Commands;
 using UsersVoice.Infrastructure.Mongo.Services;
 using UsersVoice.Services.Infrastructure.Common.Services;
@@ -102,7 +100,7 @@ namespace UsersVoice.Services.Infrastructure.Mongo.Tests.Services
                     Slug = "lorem-ipsum"
                 }
             };
-            var sut = CreateSut(tags);
+            var sut = CreateSut(tags.ToDictionary(t => t.Id));
 
             var slug = await sut.FindSlugAsync(tag);
 
@@ -127,31 +125,22 @@ namespace UsersVoice.Services.Infrastructure.Mongo.Tests.Services
                     Slug = "dolor-amet"
                 }
             };
-            var sut = CreateSut(tags);
+            var sut = CreateSut(tags.ToDictionary(t => t.Id));
 
             var slug = await sut.FindSlugAsync(tag);
 
             slug.ShouldBeEquivalentTo("lorem-ipsum");
         }
 
-        private static TagSlugFinder CreateSut(IEnumerable<Tag> tags)
+        private static TagSlugFinder CreateSut(IDictionary<Guid, Tag> tags)
         {
-            tags = tags ?? Enumerable.Empty<Tag>();
-
-            var mockTagsRepo = new Mock<IRepository<Tag>>();
-            mockTagsRepo.Setup(r => r.Find(It.IsAny<Expression<Func<Tag, bool>>>()))
-                .Returns((Expression<Func<Tag, bool>> exp) =>
-               {
-                   var predicate = exp.Compile();
-                   var filteredItems = tags.Where(predicate).ToArray();
-                   var cursor = new FakeFindFluent<Tag>(filteredItems);
-                   return cursor;
-               });
+            var mockTagsRepo = RepositoryHelpers.MockRepo(tags);
 
             var mockDbContext = new Mock<ICommandsDbContext>();
             mockDbContext.SetupGet(c => c.Tags).Returns(mockTagsRepo.Object);
 
             return new TagSlugFinder(new SlugGenerator(), mockDbContext.Object);
         }
+
     }
 }

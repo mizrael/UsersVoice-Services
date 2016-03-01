@@ -103,6 +103,7 @@
     <Compile Include="RepositoryFactoryTests.cs" />
     <Compile Include="RepositoryOptionsTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RepositoryHelpers.cs" />
     <Compile Include="Services\TagSlugFinderTests.cs" />
   </ItemGroup>
   <ItemGroup>

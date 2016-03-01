@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace UsersVoice.Infrastructure.Mongo.Commands.Entities
 {
-    public class Idea
+    public class Idea : IEntity
     {
         public Idea()
         {

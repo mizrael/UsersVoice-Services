@@ -25,13 +25,11 @@ namespace UsersVoice.Services.API.CQRS.Mongo.Tests.Commands.Handlers
         private static VoteIdeaCommandHandler CreateSut(IEnumerable<Idea> ideas, IEnumerable<User> users, 
                                                         IMediator mediator = null)
         {
-            var mockIdeasRepo = new Mock<IRepository<Idea>>();
-            mockIdeasRepo.Setup(r => r.Find(It.IsAny<Expression<Func<Idea, bool>>>()))
-                .Returns(new FakeFindFluent<Idea>(ideas));
+            ideas = ideas ?? Enumerable.Empty<Idea>();
+            var mockIdeasRepo = RepositoryHelpers.MockRepo(ideas.ToDictionary(i => i.Id));
 
-            var mockUsersRepo = new Mock<IRepository<User>>();
-            mockUsersRepo.Setup(r => r.Find(It.IsAny<Expression<Func<User, bool>>>()))
-                .Returns(new FakeFindFluent<User>(users));
+            users = users ?? Enumerable.Empty<User>();
+            var mockUsersRepo = RepositoryHelpers.MockRepo(users.ToDictionary(i => i.Id));
 
             var mockDbContext = new Mock<ICommandsDbContext>();
             mockDbContext.SetupGet(c => c.Ideas).Returns(mockIdeasRepo.Object);
@@ -46,13 +44,6 @@ namespace UsersVoice.Services.API.CQRS.Mongo.Tests.Commands.Handlers
 
             var sut = new VoteIdeaCommandHandler(mockDbContext.Object, mediator, null);
             return sut;
-        }
-
-        [Fact]
-        public async Task should_throw_if_null_command()
-        {
-            var sut = CreateSut(null, null);
-            await Assert.ThrowsAsync<ArgumentNullException>(() => sut.Handle(null));
         }
 
         [Fact]
