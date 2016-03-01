@@ -119,6 +119,10 @@
       <Project>{e347b9e9-1cbc-4e9b-b0fb-73c45fc0c379}</Project>
       <Name>UsersVoice.Services.API.CQRS</Name>
     </ProjectReference>
+    <ProjectReference Include="..\UsersVoice.Services.Common.CQRS\UsersVoice.Services.Common.CQRS.csproj">
+      <Project>{0FA09A37-B614-49F4-BCE5-BF6E14D7CB76}</Project>
+      <Name>UsersVoice.Services.Common.CQRS</Name>
+    </ProjectReference>
     <ProjectReference Include="..\UsersVoice.Services.Infrastructure.Common\UsersVoice.Services.Infrastructure.Common.csproj">
       <Project>{e711ad99-5b71-415b-920e-fd05ac3aa7c8}</Project>
       <Name>UsersVoice.Services.Infrastructure.Common</Name>

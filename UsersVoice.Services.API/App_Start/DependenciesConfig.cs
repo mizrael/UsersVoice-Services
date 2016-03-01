@@ -86,7 +86,7 @@ namespace UsersVoice.Services.API
             container.Register(typeof(IValidator<>), assemblies);
             container.RegisterConditional(typeof(IValidator<>), typeof(NullValidator<>), c => !c.Handled);
 
-            container.RegisterDecorator(typeof(IAsyncNotificationHandler<>), typeof(ValidationCommandHandlerDecorator<>));
+            container.RegisterDecorator(typeof(IAsyncNotificationHandler<>), typeof(BaseCommandHandler<>));
 
             RegisterUserHandlers(container);
             RegisterAreaHandlers(container);

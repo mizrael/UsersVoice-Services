@@ -6,15 +6,17 @@ using UsersVoice.Infrastructure.Mongo.Commands;
 using UsersVoice.Infrastructure.Mongo.Commands.Entities;
 using UsersVoice.Services.API.CQRS.Commands;
 using UsersVoice.Services.API.CQRS.Events;
+using UsersVoice.Services.Common.CQRS.Commands.Handlers;
+using UsersVoice.Services.Infrastructure.Common;
 
 namespace UsersVoice.Services.API.CQRS.Mongo.Commands.Handlers
 {
-    public class ApproveIdeaCommandHandler : IAsyncNotificationHandler<ApproveIdea>
+    public class ApproveIdeaCommandHandler : BaseCommandHandler<ApproveIdea>
     { 
         private readonly ICommandsDbContext _commandsDb;
         private readonly IMediator _bus;
 
-        public ApproveIdeaCommandHandler(ICommandsDbContext commandsDb, IMediator bus)
+        public ApproveIdeaCommandHandler(ICommandsDbContext commandsDb, IMediator bus, IValidator<ApproveIdea> validator) : base(validator)
         {
             if (commandsDb == null) throw new ArgumentNullException("commandsDb");
             if (bus == null) throw new ArgumentNullException("bus");
@@ -22,27 +24,14 @@ namespace UsersVoice.Services.API.CQRS.Mongo.Commands.Handlers
             _bus = bus;
         }
 
-        public async Task Handle(CQRS.Commands.ApproveIdea command)
+        protected override async Task RunCommand(ApproveIdea command)
         {
-            if (null == command)
-                throw new ArgumentNullException("command");
-
             var idea = await _commandsDb.Ideas.Find(d => d.Id == command.IdeaId).FirstOrDefaultAsync();
             if (null == idea)
                 throw new ArgumentException("invalid idea id: " + command.IdeaId);
 
-            var user = await _commandsDb.Users.Find(d => d.Id == command.UserId).FirstOrDefaultAsync();
-            if (null == user)
-                throw new ArgumentException("invalid user id: " + command.UserId);
-            
-            if (!user.IsAdmin)
-                throw new UnauthorizedAccessException("user is not authorized to execute this action");
-
             if (idea.Status == Idea.IdeaStatus.Approved)
                 return;
-
-            if (idea.Status != Idea.IdeaStatus.Nothing)
-                throw new ArgumentException("invalid status");
 
             idea.Status = Idea.IdeaStatus.Approved;
 

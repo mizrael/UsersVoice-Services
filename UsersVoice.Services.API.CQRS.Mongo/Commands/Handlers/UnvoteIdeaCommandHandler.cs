@@ -6,14 +6,17 @@ using MongoDB.Driver;
 using UsersVoice.Infrastructure.Mongo.Commands;
 using UsersVoice.Services.API.CQRS.Commands;
 using UsersVoice.Services.API.CQRS.Events;
+using UsersVoice.Services.Common.CQRS.Commands.Handlers;
+using UsersVoice.Services.Infrastructure.Common;
 
 namespace UsersVoice.Services.API.CQRS.Mongo.Commands.Handlers
 {
-    public class UnvoteIdeaCommandHandler : IAsyncNotificationHandler<UnvoteIdea>
+    public class UnvoteIdeaCommandHandler : BaseCommandHandler<UnvoteIdea>
     { 
         private readonly ICommandsDbContext _commandsDb;
         private readonly IMediator _bus;
-        public UnvoteIdeaCommandHandler(ICommandsDbContext commandsDb, IMediator bus)
+        public UnvoteIdeaCommandHandler(ICommandsDbContext commandsDb, IMediator bus, IValidator<UnvoteIdea> validator)
+            : base(validator)
         {
             if (commandsDb == null) throw new ArgumentNullException("commandsDb");
             if (bus == null) throw new ArgumentNullException("bus");
@@ -21,7 +24,7 @@ namespace UsersVoice.Services.API.CQRS.Mongo.Commands.Handlers
             _bus = bus;
         }
 
-        public async Task Handle(CQRS.Commands.UnvoteIdea command)
+        protected override async Task RunCommand(UnvoteIdea command)
         {
             if (null == command)
                 throw new ArgumentNullException("command");

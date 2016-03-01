@@ -5,15 +5,18 @@ using UsersVoice.Infrastructure.Mongo.Commands;
 using UsersVoice.Infrastructure.Mongo.Commands.Entities;
 using UsersVoice.Services.API.CQRS.Commands;
 using UsersVoice.Services.API.CQRS.Events;
+using UsersVoice.Services.Common.CQRS.Commands.Handlers;
+using UsersVoice.Services.Infrastructure.Common;
 
 namespace UsersVoice.Services.API.CQRS.Mongo.Commands.Handlers
 {
-    public class CreateIdeaTagCommandHandler : IAsyncNotificationHandler<CreateIdeaTag>
+    public class CreateIdeaTagCommandHandler : BaseCommandHandler<CreateIdeaTag>
     { 
         private readonly ICommandsDbContext _commandsDb;
         private readonly IMediator _bus;
 
-        public CreateIdeaTagCommandHandler(ICommandsDbContext commandsDb, IMediator bus)
+        public CreateIdeaTagCommandHandler(ICommandsDbContext commandsDb, IMediator bus, IValidator<CreateIdeaTag> validator)
+            : base(validator)
         {
             if (commandsDb == null) throw new ArgumentNullException("commandsDb");
             if (bus == null) throw new ArgumentNullException("bus");
@@ -21,7 +24,7 @@ namespace UsersVoice.Services.API.CQRS.Mongo.Commands.Handlers
             _bus = bus;
         }
 
-        public async Task Handle(CreateIdeaTag command)
+        protected override async Task RunCommand(CreateIdeaTag command)
         {
             var entity = new IdeaTag()
             {

@@ -44,7 +44,7 @@ namespace UsersVoice.Services.API.CQRS.Mongo.Tests.Commands.Handlers
                 mediator = new Mediator(singleFactory, multiFactory);
             }
 
-            var sut = new VoteIdeaCommandHandler(mockDbContext.Object, mediator);
+            var sut = new VoteIdeaCommandHandler(mockDbContext.Object, mediator, null);
             return sut;
         }
 

@@ -5,7 +5,7 @@ namespace UsersVoice.Services.API.CQRS.Commands
 {
     public abstract class ChangeIdeaStatus : IAsyncNotification
     {
-        public ChangeIdeaStatus(Guid ideaId, Guid userId)
+        protected ChangeIdeaStatus(Guid ideaId, Guid userId)
         {
             if (ideaId == Guid.Empty) throw new ArgumentNullException("ideaId");
             if (userId == Guid.Empty) throw new ArgumentNullException("userId");

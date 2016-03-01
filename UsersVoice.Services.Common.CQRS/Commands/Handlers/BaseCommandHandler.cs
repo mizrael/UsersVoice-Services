@@ -5,22 +5,21 @@ using UsersVoice.Services.Infrastructure.Common;
 
 namespace UsersVoice.Services.Common.CQRS.Commands.Handlers
 {
-    public class ValidationCommandHandlerDecorator<TCommand> : IAsyncNotificationHandler<TCommand>
+    public abstract class BaseCommandHandler<TCommand> : IAsyncNotificationHandler<TCommand>
         where TCommand : IAsyncNotification
     {
         private readonly IValidator<TCommand> _validator;
-        private readonly IAsyncNotificationHandler<TCommand> _handler;
 
-        public ValidationCommandHandlerDecorator(IAsyncNotificationHandler<TCommand> handler, IValidator<TCommand> validator)
+        protected BaseCommandHandler(IValidator<TCommand> validator = null)
         {
-            if (handler == null)
-                throw new ArgumentNullException("handler");
             _validator = validator;
-            _handler = handler;
         }
 
         public async Task Handle(TCommand command)
         {
+            if (null == command)
+                throw new ArgumentNullException("command");
+
             if (null != _validator)
             {
                 var result = await _validator.ValidateAsync(command);
@@ -32,8 +31,10 @@ namespace UsersVoice.Services.Common.CQRS.Commands.Handlers
                     throw new ValidationException(result.Errors);
             }
 
-            await _handler.Handle(command);
+            await RunCommand(command);
         }
+
+        protected abstract Task RunCommand(TCommand command);
     }
 
 }

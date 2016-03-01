@@ -94,6 +94,7 @@
     <Compile Include="Queries\QueryDefinitionFactories\UsersArchiveQueryDefinitionFactory.cs" />
     <Compile Include="Queries\Runners\DefaultDetailsQueryRunner.cs" />
     <Compile Include="Queries\QueryDefinitionFactories\UserDetailsQueryDefinitionFactory.cs" />
+    <Compile Include="Validators\ApproveIdeaCommandValidator.cs" />
     <Compile Include="Validators\VoteIdeaCommandValidator.cs" />
     <Compile Include="Validators\CreateUserTagCommandValidator.cs" />
     <Compile Include="Validators\CreateIdeaTagCommandValidator.cs" />

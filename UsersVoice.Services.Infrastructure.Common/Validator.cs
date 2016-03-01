@@ -15,7 +15,14 @@ namespace UsersVoice.Services.Infrastructure.Common
 
         public async Task<ValidationResult> ValidateAsync(TCommand command)
         {
-            await this.RunAsync(command);
+            if (null == command)
+            {
+                AddError(new ValidationError("command"));
+            }
+            else
+            {
+                await this.RunAsync(command);
+            }
 
             var errors = _errors.Where(e => null != e).ToArray();
             var result = new ValidationResult(errors);

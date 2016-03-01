@@ -78,7 +78,7 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
-    <Compile Include="Commands\Handlers\ValidationCommandHandlerDecoratorTests.cs" />
+    <Compile Include="Commands\Handlers\BaseCommandHandlerTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

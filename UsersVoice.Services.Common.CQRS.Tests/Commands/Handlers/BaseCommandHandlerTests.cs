@@ -11,32 +11,20 @@ using UsersVoice.Services.Infrastructure.Common;
 namespace UsersVoice.Services.Common.CQRS.Tests.Commands.Handlers
 {
     [TestClass]
-    public class ValidationCommandHandlerDecoratorTests
+    public class BaseCommandHandlerTests
     {
         [Fact]
         public void should_throw_ArgumentNullException_if_handler_is_null()
         {
-            Assert.Throws<ArgumentNullException>(() => new ValidationCommandHandlerDecorator<DummyCommand>(null, new DummyValidator()));
+            Assert.Throws<ArgumentNullException>(() => new DummyCommandHandler(new DummyValidator()));
         }
-
-        [Fact]
-        public async Task should_run_handler_if_validator_is_null()
-        {
-            var mockHandler = new Mock<IAsyncNotificationHandler<DummyCommand>>(); 
-            var sut = new ValidationCommandHandlerDecorator<DummyCommand>(mockHandler.Object, null);
-
-            await sut.Handle(new DummyCommand());
-
-            mockHandler.Verify(h => h.Handle(It.IsAny<DummyCommand>()));
-        }
-
+        
         [Fact]
         public async Task should_run_validator()
         {
-            var mockHandler = new Mock<IAsyncNotificationHandler<DummyCommand>>();
             var mockValidator = new Mock<IValidator<DummyCommand>>();
             mockValidator.Setup(v => v.ValidateAsync(It.IsAny<DummyCommand>())).Returns(() => Task.FromResult(new ValidationResult(null)));
-            var sut = new ValidationCommandHandlerDecorator<DummyCommand>(mockHandler.Object, mockValidator.Object);
+            var sut = new DummyCommandHandler(mockValidator.Object);
 
             await sut.Handle(new DummyCommand());
 
@@ -46,11 +34,10 @@ namespace UsersVoice.Services.Common.CQRS.Tests.Commands.Handlers
         [Fact]
         public async Task should_throw_ValidationException_if_validator_returns_null()
         {
-            var mockHandler = new Mock<IAsyncNotificationHandler<DummyCommand>>();
             var mockValidator = new Mock<IValidator<DummyCommand>>();
             mockValidator.Setup(v => v.ValidateAsync(It.IsAny<DummyCommand>())).Returns(() => Task.FromResult((ValidationResult)null));
 
-            var sut = new ValidationCommandHandlerDecorator<DummyCommand>(mockHandler.Object, mockValidator.Object);
+            var sut = new DummyCommandHandler(mockValidator.Object);
 
             await Assert.ThrowsAsync<ValidationException>(() => sut.Handle(new DummyCommand()));
         }
@@ -59,11 +46,10 @@ namespace UsersVoice.Services.Common.CQRS.Tests.Commands.Handlers
         public async Task should_throw_ValidationException_if_validation_fails()
         {
             var validationResult = new ValidationResult(new[] {new ValidationError("lorem")});
-            
-            var mockHandler = new Mock<IAsyncNotificationHandler<DummyCommand>>();
+
             var mockValidator = new Mock<IValidator<DummyCommand>>();
             mockValidator.Setup(v => v.ValidateAsync(It.IsAny<DummyCommand>())).Returns(() => Task.FromResult(validationResult));
-            var sut = new ValidationCommandHandlerDecorator<DummyCommand>(mockHandler.Object, mockValidator.Object);
+            var sut = new DummyCommandHandler(mockValidator.Object);
 
             Assert.Equal(false, validationResult.Success);
             await Assert.ThrowsAsync<ValidationException>(() => sut.Handle(new DummyCommand()));
@@ -78,6 +64,17 @@ namespace UsersVoice.Services.Common.CQRS.Tests.Commands.Handlers
     public class DummyValidator : IValidator<DummyCommand>
     {
         public Task<ValidationResult> ValidateAsync(DummyCommand value)
+        {
+            throw new NotImplementedException();
+        }
+    }
+
+    public class DummyCommandHandler : BaseCommandHandler<DummyCommand>
+    {
+        public DummyCommandHandler(IValidator<DummyCommand> validator) : base(validator)
+        {
+        }
+        protected override Task RunCommand(DummyCommand command)
         {
             throw new NotImplementedException();
         }

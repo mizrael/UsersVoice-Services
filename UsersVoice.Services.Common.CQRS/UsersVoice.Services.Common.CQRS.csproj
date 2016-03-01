@@ -44,7 +44,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Commands\Handlers\ValidationCommandHandlerDecorator.cs" />
+    <Compile Include="Commands\Handlers\BaseCommandHandler.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Queries\ArchiveQuery.cs" />
     <Compile Include="Queries\IMapper.cs" />

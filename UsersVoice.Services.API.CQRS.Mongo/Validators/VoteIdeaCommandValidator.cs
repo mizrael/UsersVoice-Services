@@ -20,12 +20,6 @@ namespace UsersVoice.Services.API.CQRS.Mongo.Validators
 
         protected override async Task RunAsync(VoteIdea command)
         {
-            if (null == command)
-            {
-                AddError(new ValidationError("command"));
-                return;
-            }
-
             var idea = await _commandsDb.Ideas.Find(d => d.Id == command.IdeaId).FirstOrDefaultAsync();
             if (null == idea)
                 AddError(new ValidationError("invalid idea id: " + command.IdeaId));

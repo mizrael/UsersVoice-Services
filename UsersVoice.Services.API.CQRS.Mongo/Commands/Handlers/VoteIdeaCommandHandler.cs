@@ -6,15 +6,18 @@ using UsersVoice.Infrastructure.Mongo.Commands;
 using UsersVoice.Infrastructure.Mongo.Commands.Entities;
 using UsersVoice.Services.API.CQRS.Commands;
 using UsersVoice.Services.API.CQRS.Events;
+using UsersVoice.Services.Common.CQRS.Commands.Handlers;
+using UsersVoice.Services.Infrastructure.Common;
 
 namespace UsersVoice.Services.API.CQRS.Mongo.Commands.Handlers
 {
-    public class VoteIdeaCommandHandler : IAsyncNotificationHandler<VoteIdea>
+    public class VoteIdeaCommandHandler : BaseCommandHandler<VoteIdea>
     { 
         private readonly ICommandsDbContext _commandsDb;
         private readonly IMediator _bus;
 
-        public VoteIdeaCommandHandler(ICommandsDbContext commandsDb, IMediator bus)
+        public VoteIdeaCommandHandler(ICommandsDbContext commandsDb, IMediator bus, IValidator<VoteIdea> validator)
+            : base(validator)
         {
             if (commandsDb == null) throw new ArgumentNullException("commandsDb");
             if (bus == null) throw new ArgumentNullException("bus");
@@ -22,7 +25,7 @@ namespace UsersVoice.Services.API.CQRS.Mongo.Commands.Handlers
             _bus = bus;
         }
 
-        public async Task Handle(VoteIdea command)
+        protected override async Task RunCommand(VoteIdea command)
         {
             if (null == command)
                 throw new ArgumentNullException("command");
