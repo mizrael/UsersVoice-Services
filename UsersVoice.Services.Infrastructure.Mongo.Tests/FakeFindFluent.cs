@@ -7,13 +7,93 @@ using MongoDB.Driver;
 
 namespace UsersVoice.Services.Infrastructure.Mongo.Tests
 {
-    public class FakeFindFluent<TEntity> : IFindFluent<TEntity, TEntity>
+    public class FakeFindFluent<TEntity, TProjection> : IFindFluent<TEntity, TProjection>
     {
-        private readonly IEnumerable<TEntity> _items;
+        protected readonly IEnumerable<TProjection> _items;
 
-        public FakeFindFluent(IEnumerable<TEntity> items)
+        public FakeFindFluent(IEnumerable<TProjection> items)
         {
-            _items = items ?? Enumerable.Empty<TEntity>();
+            _items = items ?? Enumerable.Empty<TProjection>();
+        }
+
+        public long Count(CancellationToken cancellationToken)
+        {
+            return (long)_items.Count();
+        }
+
+        public Task<long> CountAsync(CancellationToken cancellationToken)
+        {
+            return Task.FromResult(this.Count(cancellationToken));
+        }
+
+        public virtual IFindFluent<TEntity, TNewProjection> Project<TNewProjection>(
+            ProjectionDefinition<TEntity, TNewProjection> projection)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IFindFluent<TEntity, TProjection> Limit(int? limit)
+        {
+            if (!limit.HasValue)
+                return this;
+
+            var newItems = _items.Take(limit.Value);
+            return new FakeFindFluent<TEntity, TProjection>(newItems);
+        }
+
+        public FindOptions<TEntity, TProjection> Options
+        {
+            get { throw new NotImplementedException(); }
+        }
+
+        public IFindFluent<TEntity, TProjection> Skip(int? skip)
+        {
+            if (!skip.HasValue) return this;
+            return new FakeFindFluent<TEntity, TProjection>(_items.Skip(skip.Value));
+        }
+
+        public IFindFluent<TEntity, TProjection> Sort(SortDefinition<TEntity> sort)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IAsyncCursor<TProjection> ToCursor(CancellationToken cancellationToken)
+        {
+            IAsyncCursor<TProjection> cursor = new FakeAsyncCursor<TProjection>(_items);
+            return cursor;
+        }
+
+        public Task<IAsyncCursor<TProjection>> ToCursorAsync(CancellationToken cancellationToken)
+        {
+            var cursor = this.ToCursor(cancellationToken);
+            var task = Task.FromResult(cursor);
+            return task;
+        }
+
+        public IFindFluent<TEntity, TResult> As<TResult>(MongoDB.Bson.Serialization.IBsonSerializer<TResult> resultSerializer = null)
+        {
+            throw new NotImplementedException();
+        }
+
+        public FilterDefinition<TEntity> Filter
+        {
+            get
+            {
+                throw new NotImplementedException();
+            }
+            set
+            {
+                throw new NotImplementedException();
+            }
+        }
+
+    }
+
+    public class FakeFindFluent<TEntity> : FakeFindFluent<TEntity, TEntity>
+    {
+        public FakeFindFluent(IEnumerable<TEntity> items)
+            : base(items)
+        {
         }
 
         public Task<TEntity> FirstOrDefaultAsync(CancellationToken cancellationToken)
@@ -21,66 +101,17 @@ namespace UsersVoice.Services.Infrastructure.Mongo.Tests
             return Task.FromResult(_items.FirstOrDefault());
         }
 
-        public IFindFluent<TEntity, TResult> As<TResult>(
-            MongoDB.Bson.Serialization.IBsonSerializer<TResult> resultSerializer = null)
+        public override IFindFluent<TEntity, TNewProjection> Project<TNewProjection>(
+         ProjectionDefinition<TEntity, TNewProjection> projection)
         {
-            throw new NotImplementedException();
-        }
+            var findProj = projection as FindExpressionProjectionDefinition<TEntity, TNewProjection>;
+            if (null == findProj)
+                return null;
 
-        public Task<long> CountAsync(CancellationToken cancellationToken)
-        {
-            return Task.FromResult((long)_items.Count());
-        }
+            var predicate = findProj.Expression.Compile();
+            var projItems = _items.Select(predicate).ToArray();
 
-        public FilterDefinition<TEntity> Filter
-        {
-            get { throw new NotImplementedException(); }
-            set { throw new NotImplementedException(); }
-        }
-
-        public IFindFluent<TEntity, TEntity> Limit(int? limit)
-        {
-            return this;
-        }
-
-        public FindOptions<TEntity, TEntity> Options
-        {
-            get { throw new NotImplementedException(); }
-        }
-
-        public IFindFluent<TEntity, TNewProjection> Project<TNewProjection>(
-            ProjectionDefinition<TEntity, TNewProjection> projection)
-        {
-            throw new NotImplementedException();
-        }
-
-        public IFindFluent<TEntity, TEntity> Skip(int? skip)
-        {
-            return this;
-        }
-
-        public IFindFluent<TEntity, TEntity> Sort(SortDefinition<TEntity> sort)
-        {
-            return this;
-        }
-
-        public Task<IAsyncCursor<TEntity>> ToCursorAsync(CancellationToken cancellationToken)
-        {
-            IAsyncCursor<TEntity> cursor = new FakeAsyncCursor<TEntity>(_items);
-            var task = Task.FromResult(cursor);
-
-            return task;
-        }
-
-
-        public long Count(CancellationToken cancellationToken)
-        {
-            return _items.Count();
-        }
-
-        public IAsyncCursor<TEntity> ToCursor(CancellationToken cancellationToken)
-        {
-            throw new NotImplementedException();
+            return new FakeFindFluent<TEntity, TNewProjection>(projItems);
         }
     }
 }

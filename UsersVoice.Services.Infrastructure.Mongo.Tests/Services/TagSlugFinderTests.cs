@@ -2,19 +2,16 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
-using System.Net.Mime;
-using System.Runtime.CompilerServices;
-using System.Text;
 using System.Threading.Tasks;
 using FluentAssertions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using UsersVoice.Infrastructure.Mongo;
 using UsersVoice.Infrastructure.Mongo.Commands;
-using UsersVoice.Infrastructure.Mongo.Commands.Entities;
 using UsersVoice.Infrastructure.Mongo.Services;
 using UsersVoice.Services.Infrastructure.Common.Services;
 using Xunit;
+using Tag = UsersVoice.Infrastructure.Mongo.Commands.Entities.Tag;
 
 namespace UsersVoice.Services.Infrastructure.Mongo.Tests.Services
 {
@@ -88,7 +85,7 @@ namespace UsersVoice.Services.Infrastructure.Mongo.Tests.Services
         }
 
         [Fact]
-        public async Task should_generate_slug_with_index_when_other_tags_present()
+        public async Task should_generate_slug_with_index_when_other_tags_present_with_same_slug()
         {
             var tag = new Tag()
             {
@@ -112,11 +109,44 @@ namespace UsersVoice.Services.Infrastructure.Mongo.Tests.Services
             slug.ShouldBeEquivalentTo("lorem-ipsum-1");
         }
 
+        [Fact]
+        public async Task should_generate_slug_with_index_when_other_tags_present_with_different_slug()
+        {
+            var tag = new Tag()
+            {
+                Id = Guid.NewGuid(),
+                Text = "Lorem Ipsum"
+            };
+
+            var tags = new[]
+            {
+                new Tag()
+                {
+                    Id = Guid.NewGuid(),
+                    Text = "Dolor Amet",
+                    Slug = "dolor-amet"
+                }
+            };
+            var sut = CreateSut(tags);
+
+            var slug = await sut.FindSlugAsync(tag);
+
+            slug.ShouldBeEquivalentTo("lorem-ipsum");
+        }
+
         private static TagSlugFinder CreateSut(IEnumerable<Tag> tags)
         {
+            tags = tags ?? Enumerable.Empty<Tag>();
+
             var mockTagsRepo = new Mock<IRepository<Tag>>();
             mockTagsRepo.Setup(r => r.Find(It.IsAny<Expression<Func<Tag, bool>>>()))
-                .Returns(new FakeFindFluent<Tag>(tags));
+                .Returns((Expression<Func<Tag, bool>> exp) =>
+               {
+                   var predicate = exp.Compile();
+                   var filteredItems = tags.Where(predicate).ToArray();
+                   var cursor = new FakeFindFluent<Tag>(filteredItems);
+                   return cursor;
+               });
 
             var mockDbContext = new Mock<ICommandsDbContext>();
             mockDbContext.SetupGet(c => c.Tags).Returns(mockTagsRepo.Object);
