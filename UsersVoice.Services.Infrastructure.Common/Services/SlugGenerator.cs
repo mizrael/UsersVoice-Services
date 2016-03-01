@@ -6,7 +6,7 @@ namespace UsersVoice.Services.Infrastructure.Common.Services
     {
         private readonly int _maxLength;
 
-        public SlugGenerator(int maxLength = 45)
+        public SlugGenerator(int maxLength)
         {
             _maxLength = maxLength;
         }

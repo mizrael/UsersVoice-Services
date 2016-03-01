@@ -139,7 +139,7 @@ namespace UsersVoice.Services.Infrastructure.Mongo.Tests.Services
             var mockDbContext = new Mock<ICommandsDbContext>();
             mockDbContext.SetupGet(c => c.Tags).Returns(mockTagsRepo.Object);
 
-            return new TagSlugFinder(new SlugGenerator(), mockDbContext.Object);
+            return new TagSlugFinder(new SlugGenerator(45), mockDbContext.Object);
         }
 
     }

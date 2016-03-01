@@ -49,7 +49,7 @@ namespace UsersVoice.Services.API
 
         private static void RegisterInfrastructure(Container container)
         {
-            container.RegisterSingleton<ISlugGenerator>(() => new SlugGenerator());
+            container.RegisterSingleton<ISlugGenerator>(() => new SlugGenerator(45));
             container.Register<ITagSlugFinder, TagSlugFinder>();
 
             container.RegisterSingleton<IMongoDatabaseFactory, MongoDatabaseFactory>();

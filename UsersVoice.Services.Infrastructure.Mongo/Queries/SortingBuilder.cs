@@ -10,9 +10,11 @@ namespace UsersVoice.Infrastructure.Mongo.Queries
         public static SortDefinition<TEntity> BuildSorting<TEntity, TSortBy>(TSortBy sortBy, SortDirection direction,
                                                                              Func<TSortBy, Expression<Func<TEntity, object>>> getSortingField)
         {
-            var sortingBuilder = Builders<TEntity>.Sort;
-
             var sortingField = getSortingField(sortBy);
+            if (null == sortingField)
+                return null;
+
+            var sortingBuilder = Builders<TEntity>.Sort;
 
             return direction == SortDirection.ASC
                 ? sortingBuilder.Ascending(sortingField)

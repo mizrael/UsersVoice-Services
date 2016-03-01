@@ -68,7 +68,7 @@ namespace UsersVoice.Services.API.CQRS.Mongo.Tests.Commands.Handlers
                 mediator = new Mediator(singleFactory, multiFactory);
             }
 
-            var slugFinder = new TagSlugFinder(new SlugGenerator(), mockDbContext.Object);
+            var slugFinder = new TagSlugFinder(new SlugGenerator(45), mockDbContext.Object);
 
             var sut = new CreateTagCommandHandler(mockDbContext.Object, mediator, slugFinder, null);
             return sut;
