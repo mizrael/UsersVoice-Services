@@ -12,7 +12,7 @@ namespace UsersVoice.Services.API.CQRS.Validators
             if (null == command)
             {
                 AddError(new ValidationError("command cannot be null"));
-                return Task.CompletedTask;
+                return Task.Delay(0);
             }
 
             if(Guid.Empty == command.TagId)
@@ -20,7 +20,7 @@ namespace UsersVoice.Services.API.CQRS.Validators
             if(string.IsNullOrWhiteSpace(command.Text))
                 AddError(new ValidationError("tag text cannot be empty"));
 
-            return Task.CompletedTask;
+            return Task.Delay(0);
         }
     }
 }
