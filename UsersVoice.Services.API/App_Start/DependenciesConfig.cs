@@ -21,6 +21,7 @@ using UsersVoice.Services.API.CQRS.Queries.Models;
 using UsersVoice.Services.Common.CQRS.Commands.Handlers;
 using UsersVoice.Services.Common.CQRS.Queries;
 using UsersVoice.Services.Infrastructure.Common;
+using UsersVoice.Services.Infrastructure.Common.Services;
 
 namespace UsersVoice.Services.API
 {
@@ -47,6 +48,8 @@ namespace UsersVoice.Services.API
 
         private static void RegisterInfrastructure(Container container)
         {
+            container.RegisterSingleton<ISlugGenerator, SlugGenerator>();
+
             container.RegisterSingleton<IMongoDatabaseFactory, MongoDatabaseFactory>();
             container.RegisterSingleton<IRepositoryFactory, RepositoryFactory>();
             container.RegisterSingleton<IMongoQueryExecutor, MongoQueryExecutor>();

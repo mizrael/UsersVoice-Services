@@ -1,0 +1,127 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Linq.Expressions;
+using System.Net.Mime;
+using System.Runtime.CompilerServices;
+using System.Text;
+using System.Threading.Tasks;
+using FluentAssertions;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Moq;
+using UsersVoice.Infrastructure.Mongo;
+using UsersVoice.Infrastructure.Mongo.Commands;
+using UsersVoice.Infrastructure.Mongo.Commands.Entities;
+using UsersVoice.Infrastructure.Mongo.Services;
+using UsersVoice.Services.Infrastructure.Common.Services;
+using Xunit;
+
+namespace UsersVoice.Services.Infrastructure.Mongo.Tests.Services
+{
+    [TestClass]
+    public class TagSlugFinderTests
+    {
+        [Fact]
+        public void should_throw_ArgumentNullException_if_ISlugGenerator_is_null()
+        {
+            var mockDbContext = new Mock<ICommandsDbContext>();
+            Xunit.Assert.Throws<ArgumentNullException>(() => new TagSlugFinder(null, mockDbContext.Object));
+        }
+
+        [Fact]
+        public void should_throw_ArgumentNullException_if_ICommandsDbContext_is_null()
+        {
+            var mockSlugGenerator = new Mock<ISlugGenerator>();
+            Xunit.Assert.Throws<ArgumentNullException>(() => new TagSlugFinder(mockSlugGenerator.Object, null));
+        }
+
+        [Fact]
+        public async Task should_throw_ArgumentNullException_if_tag_is_null()
+        {
+            var sut = CreateSut(null);
+
+            await Xunit.Assert.ThrowsAsync<ArgumentNullException>(() => sut.FindSlugAsync(null));
+        }
+
+        [Fact]
+        public async Task should_throw_ArgumentException_if_tag_id_is_empty()
+        {
+            var tag = new Tag()
+            {
+                Id = Guid.Empty,
+                Text = "Lorem Ipsum"
+            };
+
+            var sut = CreateSut(null);
+
+            await Xunit.Assert.ThrowsAsync<ArgumentException>(() => sut.FindSlugAsync(tag));
+        }
+
+        [Fact]
+        public async Task should_throw_ArgumentException_if_tag_text_is_empty()
+        {
+            var tag = new Tag()
+            {
+                Id = Guid.NewGuid(),
+                Text = String.Empty
+            };
+
+            var sut = CreateSut(null);
+
+            await Xunit.Assert.ThrowsAsync<ArgumentException>(() => sut.FindSlugAsync(tag));
+        }
+
+        [Fact]
+        public async Task should_generate_base_slug_when_no_other_tags_present()
+        {
+            var tag = new Tag()
+            {
+                Id = Guid.NewGuid(),
+                Text = "Lorem Ipsum"
+            };
+
+            var sut = CreateSut(null);
+
+            var slug = await sut.FindSlugAsync(tag);
+
+            slug.ShouldBeEquivalentTo("lorem-ipsum");
+        }
+
+        [Fact]
+        public async Task should_generate_slug_with_index_when_other_tags_present()
+        {
+            var tag = new Tag()
+            {
+                Id = Guid.NewGuid(),
+                Text = "Lorem Ipsum"
+            };
+
+            var tags = new[]
+            {
+                new Tag()
+                {
+                    Id = Guid.NewGuid(),
+                    Text = "Lorem Ipsum",
+                    Slug = "lorem-ipsum"
+                }
+            };
+            var sut = CreateSut(tags);
+
+            var slug = await sut.FindSlugAsync(tag);
+
+            slug.ShouldBeEquivalentTo("lorem-ipsum-1");
+        }
+
+        private static TagSlugFinder CreateSut(IEnumerable<Tag> tags)
+        {
+            var mockTagsRepo = new Mock<IRepository<Tag>>();
+            mockTagsRepo.Setup(r => r.Find(It.IsAny<Expression<Func<Tag, bool>>>()))
+                .Returns(new FakeFindFluent<Tag>(tags));
+
+            var mockDbContext = new Mock<ICommandsDbContext>();
+            mockDbContext.SetupGet(c => c.Tags).Returns(mockTagsRepo.Object);
+
+            return new TagSlugFinder(new SlugGenerator(), mockDbContext.Object);
+        }
+    }
+}

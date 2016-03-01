@@ -1,6 +1,8 @@
 ﻿using System;
+using MongoDB.Driver;
 using MongoDB.Driver.Core.Configuration;
 using UsersVoice.Infrastructure.Mongo.Commands.Entities;
+using Tag = UsersVoice.Infrastructure.Mongo.Commands.Entities.Tag;
 
 namespace UsersVoice.Infrastructure.Mongo.Commands
 {
@@ -19,6 +21,9 @@ namespace UsersVoice.Infrastructure.Mongo.Commands
             this.Areas = repoFactory.Create<Area>(new RepositoryOptions(connectionString, connStr.DatabaseName, "areas"));
 
             this.Tags = repoFactory.Create<Tag>(new RepositoryOptions(connectionString, connStr.DatabaseName, "tags"));
+            var tagsIndexBuilder = new IndexKeysDefinitionBuilder<Tag>();
+            this.Tags.CreateIndex(tagsIndexBuilder.Ascending(i => i.Slug));
+
             this.IdeaTags = repoFactory.Create<IdeaTag>(new RepositoryOptions(connectionString, connStr.DatabaseName, "ideaTags"));
             this.UserTags = repoFactory.Create<UserTag>(new RepositoryOptions(connectionString, connStr.DatabaseName, "userTags"));
         }

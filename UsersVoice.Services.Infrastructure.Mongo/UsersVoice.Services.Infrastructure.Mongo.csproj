@@ -127,6 +127,8 @@
     <Compile Include="Repository.cs" />
     <Compile Include="RepositoryFactory.cs" />
     <Compile Include="RepositoryOptions.cs" />
+    <Compile Include="Services\ITagSlugFinder.cs" />
+    <Compile Include="Services\TagSlugFinder.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

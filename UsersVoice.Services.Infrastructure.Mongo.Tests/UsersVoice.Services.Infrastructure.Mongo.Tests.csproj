@@ -103,12 +103,17 @@
     <Compile Include="RepositoryFactoryTests.cs" />
     <Compile Include="RepositoryOptionsTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\TagSlugFinderTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\UsersVoice.Services.Infrastructure.Common\UsersVoice.Services.Infrastructure.Common.csproj">
+      <Project>{E711AD99-5B71-415B-920E-FD05AC3AA7C8}</Project>
+      <Name>UsersVoice.Services.Infrastructure.Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\UsersVoice.Services.Infrastructure.Mongo\UsersVoice.Services.Infrastructure.Mongo.csproj">
       <Project>{5395D906-E7CE-44D2-9A48-789F38A0B989}</Project>
       <Name>UsersVoice.Services.Infrastructure.Mongo</Name>
