@@ -1,3 +1,4 @@
+using System.Linq;
 using UsersVoice.Infrastructure.Mongo.Queries.Entities;
 using UsersVoice.Services.API.CQRS.Queries.Models;
 
@@ -13,8 +14,10 @@ namespace UsersVoice.Services.API
             AutoMapper.Mapper.CreateMap<Area, AreaArchiveItem>();
             AutoMapper.Mapper.CreateMap<Area, AreaDetails>();
 
-            AutoMapper.Mapper.CreateMap<Idea, IdeaArchiveItem>();
-            AutoMapper.Mapper.CreateMap<Idea, IdeaDetails>();
+            AutoMapper.Mapper.CreateMap<Idea, IdeaArchiveItem>()
+                .ForMember(i => i.Tags, e => e.ResolveUsing(i => i.Tags.Select(t => t.Slug).ToArray()));
+            AutoMapper.Mapper.CreateMap<Idea, IdeaDetails>()
+                 .ForMember(i => i.Tags, e => e.ResolveUsing(i => i.Tags.Select(t => t.Slug).ToArray()));
 
             AutoMapper.Mapper.CreateMap<IdeaComment, IdeaCommentArchiveItem>();
 

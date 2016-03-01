@@ -22,6 +22,8 @@ namespace UsersVoice.Services.API.CQRS.Queries.Models
         public int TotalComments { get; set; }
 
         public IdeaStatus Status { get; set; }
+
+        public string[] Tags { get; set; } 
     }
 
     public enum IdeaStatus

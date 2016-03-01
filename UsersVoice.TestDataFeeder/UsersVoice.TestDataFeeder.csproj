@@ -86,6 +86,14 @@
       <Project>{E347B9E9-1CBC-4E9B-B0FB-73C45FC0C379}</Project>
       <Name>UsersVoice.Services.API.CQRS</Name>
     </ProjectReference>
+    <ProjectReference Include="..\UsersVoice.Services.Common.CQRS\UsersVoice.Services.Common.CQRS.csproj">
+      <Project>{0fa09a37-b614-49f4-bce5-bf6e14d7cb76}</Project>
+      <Name>UsersVoice.Services.Common.CQRS</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\UsersVoice.Services.Infrastructure.Common\UsersVoice.Services.Infrastructure.Common.csproj">
+      <Project>{e711ad99-5b71-415b-920e-fd05ac3aa7c8}</Project>
+      <Name>UsersVoice.Services.Infrastructure.Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\UsersVoice.Services.Infrastructure.Mongo\UsersVoice.Services.Infrastructure.Mongo.csproj">
       <Project>{5395D906-E7CE-44D2-9A48-789F38A0B989}</Project>
       <Name>UsersVoice.Services.Infrastructure.Mongo</Name>

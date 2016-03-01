@@ -12,9 +12,12 @@ using UsersVoice.Infrastructure.Mongo;
 using UsersVoice.Infrastructure.Mongo.Commands;
 using UsersVoice.Infrastructure.Mongo.Commands.Entities;
 using UsersVoice.Infrastructure.Mongo.Queries;
+using UsersVoice.Infrastructure.Mongo.Services;
 using UsersVoice.Services.API.CQRS.Commands;
 using UsersVoice.Services.API.CQRS.Mongo.Commands.Handlers;
 using UsersVoice.Services.API.CQRS.Mongo.Events.Handlers;
+using UsersVoice.Services.Infrastructure.Common;
+using UsersVoice.Services.Infrastructure.Common.Services;
 
 namespace UsersVoice.TestDataFeeder
 {
@@ -29,6 +32,10 @@ namespace UsersVoice.TestDataFeeder
             container.RegisterSingleton(new SingleInstanceFactory(container.GetInstance));
             container.RegisterSingleton(new MultiInstanceFactory(container.GetAllInstances));
             container.RegisterCollection(typeof(IAsyncNotificationHandler<>), assemblies);
+            container.Register(typeof(IValidator<>), assemblies);
+            container.RegisterConditional(typeof(IValidator<>), typeof(NullValidator<>), c => !c.Handled);
+            container.RegisterSingleton<ISlugGenerator>(() => new SlugGenerator(45));
+            container.Register<ITagSlugFinder, TagSlugFinder>();
             container.Verify();
 
             var mediator = container.GetInstance<IMediator>();
@@ -36,6 +43,10 @@ namespace UsersVoice.TestDataFeeder
 
             Console.Write("creating users...");
             Task.WaitAll(CreateUsersAsync(commandsDbContext, mediator));
+            Console.WriteLine("done!");
+
+            Console.Write("creating tags...");
+            Task.WaitAll(CreateTagsAsync(commandsDbContext, mediator));
             Console.WriteLine("done!");
 
             Console.Write("creating areas...");
@@ -52,6 +63,26 @@ namespace UsersVoice.TestDataFeeder
 
             Console.WriteLine("Feeding complete!");
             Console.ReadLine();
+        }
+
+        private static async Task CreateTagsAsync(ICommandsDbContext commandsDbContext, IMediator bus)
+        {
+            var tagsCount = await commandsDbContext.Tags.CountAsync("{}");
+            if (tagsCount > 0)
+                return;
+
+            var tagSlugFinder = new TagSlugFinder(new SlugGenerator(45), commandsDbContext);
+            var commandHandler = new CreateTagCommandHandler(commandsDbContext, bus, tagSlugFinder,  null);
+
+            tagsCount = 1000;
+
+            for (int i = 0; i < tagsCount; i++)
+            {
+                var text = RandomTextGenerator.GetRandomSentence(2);
+                var command = new CreateTag(Guid.NewGuid(), text);
+
+                await commandHandler.Handle(command);
+            }
         }
 
         private static async Task CreateUsersAsync(ICommandsDbContext commandsDbContext, IMediator bus)
@@ -78,7 +109,7 @@ namespace UsersVoice.TestDataFeeder
                     "Portnoy", "Grohl", "May"
                 }.OrderBy(n => Guid.NewGuid()).ToArray();
 
-            var commandHandler = new CreateUserCommandHandler(commandsDbContext, bus);
+            var commandHandler = new CreateUserCommandHandler(commandsDbContext, bus, null);
 
             var command = new CreateUser(Guid.NewGuid(), "admin", "admin", "admin@usersvoice.com", true);
             await commandHandler.Handle(command);
@@ -134,7 +165,7 @@ namespace UsersVoice.TestDataFeeder
 
             var usersIndex = 0;
             
-            var commandHandler = new CreateAreaCommandHandler(commandsDbContext, bus);
+            var commandHandler = new CreateAreaCommandHandler(commandsDbContext, bus, null);
 
             usersIndex = await CreateAreaAsync(users, usersIndex, commandHandler, "Canteen");
             usersIndex = await CreateAreaAsync(users, usersIndex, commandHandler, "Dell @ Limerick");
@@ -173,7 +204,7 @@ namespace UsersVoice.TestDataFeeder
 
             var usersIndex = 0;
 
-            var commandHandler = new CreateIdeaCommandHandler(commandsDbContext, bus);
+            var commandHandler = new CreateIdeaCommandHandler(commandsDbContext, bus, null);
 
             var ideasPerAreaCount = 100;
 
@@ -198,7 +229,7 @@ namespace UsersVoice.TestDataFeeder
 
             var usersIndex = 0;
 
-            var commandHandler = new CreateIdeaCommentCommandHandler(commandsDbContext, bus);
+            var commandHandler = new CreateIdeaCommentCommandHandler(commandsDbContext, bus, null);
 
             var commentsPerIdeaCount = 5;
 

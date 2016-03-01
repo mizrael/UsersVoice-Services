@@ -31,7 +31,8 @@ namespace UsersVoice.Services.API.CQRS.Mongo.Events.Handlers
             var newTag = new UsersVoice.Infrastructure.Mongo.Queries.Entities.Tag()
             {
                  Text = tag.Text,
-                 Id = tag.Id
+                 Id = tag.Id,
+                 Slug = tag.Slug
             };
             await _queryDb.Tags.InsertOneAsync(newTag);
         }

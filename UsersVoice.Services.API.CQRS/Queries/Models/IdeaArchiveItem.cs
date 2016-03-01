@@ -20,5 +20,7 @@ namespace UsersVoice.Services.API.CQRS.Queries.Models
         public DateTime CreationDate { get; set; }
 
         public IdeaStatus Status { get; set; }
+
+        public string[] Tags { get; set; } 
     }
 }
