@@ -10,6 +10,7 @@ using UsersVoice.Infrastructure.Mongo;
 using UsersVoice.Infrastructure.Mongo.Commands;
 using UsersVoice.Infrastructure.Mongo.Queries;
 using UsersVoice.Infrastructure.Mongo.Queries.Entities;
+using UsersVoice.Infrastructure.Mongo.Services;
 using UsersVoice.Services.API.CQRS.Commands;
 using UsersVoice.Services.API.CQRS.Mongo.Commands.Handlers;
 using UsersVoice.Services.API.CQRS.Mongo.Events.Handlers;
@@ -48,7 +49,8 @@ namespace UsersVoice.Services.API
 
         private static void RegisterInfrastructure(Container container)
         {
-            container.RegisterSingleton<ISlugGenerator, SlugGenerator>();
+            container.RegisterSingleton<ISlugGenerator>(() => new SlugGenerator());
+            container.Register<ITagSlugFinder, TagSlugFinder>();
 
             container.RegisterSingleton<IMongoDatabaseFactory, MongoDatabaseFactory>();
             container.RegisterSingleton<IRepositoryFactory, RepositoryFactory>();
