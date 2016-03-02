@@ -24,9 +24,9 @@ namespace UsersVoice.Services.API.CQRS.Mongo.Queries.QueryDefinitionFactories
             if(query.IdeaId == Guid.Empty)
                 throw new ArgumentException("please provide a video id");
 
-            var builder = new FilterDefinitionBuilder<Area>();
+            var builder = new FilterDefinitionBuilder<Idea>();
 
-            var queryDef = new MongoQueryDefinition<Area>(_db.Areas, builder.Eq(a => a.Id, query.IdeaId));
+            var queryDef = new MongoQueryDefinition<Idea>(_db.Ideas, builder.Eq(a => a.Id, query.IdeaId));
             
             return queryDef;
         }

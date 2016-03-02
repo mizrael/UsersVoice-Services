@@ -24,10 +24,9 @@ namespace UsersVoice.Services.API.CQRS.Mongo.Queries.QueryDefinitionFactories
             if (query.UserId == Guid.Empty)
                 throw new ArgumentException("please provide a user id");
 
+            var builder = new FilterDefinitionBuilder<User>();
 
-            var builder = new FilterDefinitionBuilder<Area>();
-
-            var queryDef = new MongoQueryDefinition<Area>(_db.Areas, builder.Eq(a => a.Id, query.UserId));
+            var queryDef = new MongoQueryDefinition<User>(_db.Users, builder.Eq(a => a.Id, query.UserId));
             
             return queryDef;
         }
