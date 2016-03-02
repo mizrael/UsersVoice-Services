@@ -3,7 +3,7 @@ using UsersVoice.Services.Common.CQRS.Queries;
 
 namespace UsersVoice.Infrastructure.Mongo
 {
-    public interface IMongoQueryDefinition<TEntity> : IQueryDefinition
+    public interface IMongoQueryDefinition<TEntity> : IQueryDefinition<TEntity>
     {
         IRepository<TEntity> Repository { get; }
 

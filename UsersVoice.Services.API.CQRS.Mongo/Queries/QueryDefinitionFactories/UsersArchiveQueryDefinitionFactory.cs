@@ -11,7 +11,7 @@ using UsersVoice.Services.Common.CQRS.Queries;
 
 namespace UsersVoice.Services.API.CQRS.Mongo.Queries.QueryDefinitionFactories
 {
-    public class UsersArchiveQueryDefinitionFactory : IQueryDefinitionFactory<UsersArchiveQuery>
+    public class UsersArchiveQueryDefinitionFactory : IQueryDefinitionFactory<UsersArchiveQuery, User>
     {
         private readonly IQueriesDbContext _db;
 
@@ -21,7 +21,7 @@ namespace UsersVoice.Services.API.CQRS.Mongo.Queries.QueryDefinitionFactories
             _db = db;
         }
 
-        public IQueryDefinition Build(UsersArchiveQuery query)
+        public IQueryDefinition<User> Build(UsersArchiveQuery query)
         {
             if(null == query)
                 throw new ArgumentNullException("query");

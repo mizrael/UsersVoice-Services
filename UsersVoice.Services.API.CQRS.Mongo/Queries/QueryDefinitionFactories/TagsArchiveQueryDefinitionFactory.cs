@@ -11,7 +11,7 @@ using Tag = UsersVoice.Infrastructure.Mongo.Queries.Entities.Tag;
 
 namespace UsersVoice.Services.API.CQRS.Mongo.Queries.QueryDefinitionFactories
 {
-    public class TagsArchiveQueryDefinitionFactory : IQueryDefinitionFactory<TagsArchiveQuery>
+    public class TagsArchiveQueryDefinitionFactory : IQueryDefinitionFactory<TagsArchiveQuery, Tag>
     {
         private readonly IQueriesDbContext _db;
 
@@ -21,7 +21,7 @@ namespace UsersVoice.Services.API.CQRS.Mongo.Queries.QueryDefinitionFactories
             _db = db;
         }
 
-        public IQueryDefinition Build(TagsArchiveQuery query)
+        public IQueryDefinition<Tag> Build(TagsArchiveQuery query)
         {
             if (null == query)
                 throw new ArgumentNullException("query");

@@ -5,7 +5,7 @@ using UsersVoice.Services.Common.CQRS.Queries;
 
 namespace UsersVoice.Services.API.CQRS.Mongo.Queries.Runners
 {
-    public class DefaultDetailsQueryRunner<TEntity, TModel> : IQueryRunner<TModel>
+    public class DefaultDetailsQueryRunner<TModel> : IQueryRunner<TModel>
     {
        private readonly IMongoQueryExecutor _mongoQueryExecutor;
 
@@ -17,7 +17,7 @@ namespace UsersVoice.Services.API.CQRS.Mongo.Queries.Runners
             _mongoQueryExecutor = mongoQueryExecutor;
         }
 
-        public async Task<TModel> RunAsync(IQueryDefinition filter)
+        public async Task<TModel> RunAsync<TEntity>(IQueryDefinition<TEntity> filter)
         {
             var mongoFilter = filter as IMongoQueryDefinition<TEntity>;
             if (null == mongoFilter)

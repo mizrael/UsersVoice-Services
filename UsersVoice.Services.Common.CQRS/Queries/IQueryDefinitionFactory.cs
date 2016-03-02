@@ -1,8 +1,8 @@
 namespace UsersVoice.Services.Common.CQRS.Queries
 {
-    public interface IQueryDefinitionFactory<in TQuery>
+    public interface IQueryDefinitionFactory<in TQuery, TEntity>
         where TQuery : IQuery
     {
-        IQueryDefinition Build(TQuery query);
+        IQueryDefinition<TEntity> Build(TQuery query);
     }
 }

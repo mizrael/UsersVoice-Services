@@ -9,7 +9,7 @@ using UsersVoice.Services.Common.CQRS.Queries;
 
 namespace UsersVoice.Services.API.CQRS.Mongo.Queries.QueryDefinitionFactories
 {
-    public class IdeaCommentsArchiveQueryDefinitionFactory : IQueryDefinitionFactory<IdeaCommentsArchiveQuery>
+    public class IdeaCommentsArchiveQueryDefinitionFactory : IQueryDefinitionFactory<IdeaCommentsArchiveQuery, IdeaComment>
     {
         private readonly IQueriesDbContext _db;
 
@@ -19,7 +19,7 @@ namespace UsersVoice.Services.API.CQRS.Mongo.Queries.QueryDefinitionFactories
             _db = db;
         }
 
-        public IQueryDefinition Build(IdeaCommentsArchiveQuery query)
+        public IQueryDefinition<IdeaComment> Build(IdeaCommentsArchiveQuery query)
         {
             if (null == query)
                 throw new ArgumentNullException("query");

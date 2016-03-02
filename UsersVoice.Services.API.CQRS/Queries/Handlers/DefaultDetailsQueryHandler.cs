@@ -5,13 +5,13 @@ using UsersVoice.Services.Common.CQRS.Queries;
 
 namespace UsersVoice.Services.API.CQRS.Queries.Handlers
 {
-    public class DefaultDetailsQueryHandler<TRequest, TResponse> : IAsyncRequestHandler<TRequest, TResponse>
+    public class DefaultDetailsQueryHandler<TRequest, TEntity, TResponse> : IAsyncRequestHandler<TRequest, TResponse>
         where TRequest : MediatR.IAsyncRequest<TResponse>, IQuery
     {
-        private readonly IQueryDefinitionFactory<TRequest> _queryDefinitionFactory;
+        private readonly IQueryDefinitionFactory<TRequest, TEntity> _queryDefinitionFactory;
         private readonly IQueryRunner<TResponse> _queryRunner;
 
-        public DefaultDetailsQueryHandler(IQueryDefinitionFactory<TRequest> queryDefinitionFactory,
+        public DefaultDetailsQueryHandler(IQueryDefinitionFactory<TRequest, TEntity> queryDefinitionFactory,
             IQueryRunner<TResponse> queryRunner)
         {
             if (queryDefinitionFactory == null)

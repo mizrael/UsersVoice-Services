@@ -6,13 +6,13 @@ using UsersVoice.Services.Infrastructure.Common;
 
 namespace UsersVoice.Services.API.CQRS.Queries.Handlers
 {
-    public class DefaultArchiveQueryHandler<TRequest, TResponse> : IAsyncRequestHandler<TRequest, PagedCollection<TResponse>>
+    public class DefaultArchiveQueryHandler<TRequest, TEntity, TResponse> : IAsyncRequestHandler<TRequest, PagedCollection<TResponse>>
        where TRequest : MediatR.IAsyncRequest<PagedCollection<TResponse>>, IQuery
     {
-        private readonly IQueryDefinitionFactory<TRequest> _queryDefinitionFactory;
+        private readonly IQueryDefinitionFactory<TRequest, TEntity> _queryDefinitionFactory;
         private readonly IQueryRunner<PagedCollection<TResponse>> _queryRunner;
 
-        public DefaultArchiveQueryHandler(IQueryDefinitionFactory<TRequest> queryDefinitionFactory,
+        public DefaultArchiveQueryHandler(IQueryDefinitionFactory<TRequest, TEntity> queryDefinitionFactory,
             IQueryRunner<PagedCollection<TResponse>> queryRunner)
         {
             if (queryDefinitionFactory == null)

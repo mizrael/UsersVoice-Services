@@ -10,7 +10,7 @@ using UsersVoice.Services.Common.CQRS.Queries;
 
 namespace UsersVoice.Services.API.CQRS.Mongo.Queries.QueryDefinitionFactories
 {
-    public class AreasArchiveQueryDefinitionFactory : IQueryDefinitionFactory<AreasArchiveQuery>
+    public class AreasArchiveQueryDefinitionFactory : IQueryDefinitionFactory<AreasArchiveQuery, Area>
     {
         private readonly IQueriesDbContext _db;
 
@@ -20,7 +20,7 @@ namespace UsersVoice.Services.API.CQRS.Mongo.Queries.QueryDefinitionFactories
             _db = db;
         }
 
-        public IQueryDefinition Build(AreasArchiveQuery query)
+        public IQueryDefinition<Area> Build(AreasArchiveQuery query)
         {
             if (null == query)
                 throw new ArgumentNullException("query");

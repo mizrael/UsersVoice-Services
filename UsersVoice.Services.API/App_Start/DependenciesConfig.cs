@@ -124,23 +124,23 @@ namespace UsersVoice.Services.API
         }
 
         private static void RegisterArchiveHandlers<TEntity, TQueryDefFactory, TQuery, TResult>(Container container)
-            where TQueryDefFactory : class, IQueryDefinitionFactory<TQuery>
+            where TQueryDefFactory : class, IQueryDefinitionFactory<TQuery, TEntity>
             where TQuery : MediatR.IAsyncRequest<PagedCollection<TResult>>, IQuery
         {
-            container.Register<IQueryDefinitionFactory<TQuery>, TQueryDefFactory>();
-            container.Register<IQueryRunner<PagedCollection<TResult>>, DefaultArchiveQueryRunner<TEntity, TResult>>();
+            container.Register<IQueryDefinitionFactory<TQuery, TEntity>, TQueryDefFactory>();
+            container.Register<IQueryRunner<PagedCollection<TResult>>, DefaultArchiveQueryRunner<TResult>>();
             container.Register<IAsyncRequestHandler<TQuery, PagedCollection<TResult>>,
-                DefaultArchiveQueryHandler<TQuery, TResult>>();
+                DefaultArchiveQueryHandler<TQuery, TEntity, TResult>>();
         }
 
         private static void RegisterDetailsHandlers<TEntity, TQueryDefFactory, TQuery, TResult>(Container container)
-            where TQueryDefFactory : class, IQueryDefinitionFactory<TQuery>
+            where TQueryDefFactory : class, IQueryDefinitionFactory<TQuery, TEntity>
             where TQuery : MediatR.IAsyncRequest<TResult>, IQuery
         {
-            container.Register<IQueryDefinitionFactory<TQuery>, TQueryDefFactory>();
-            container.Register<IQueryRunner<TResult>, DefaultDetailsQueryRunner<TEntity, TResult>>();
+            container.Register<IQueryDefinitionFactory<TQuery, TEntity>, TQueryDefFactory>();
+            container.Register<IQueryRunner<TResult>, DefaultDetailsQueryRunner<TResult>>();
             container.Register<IAsyncRequestHandler<TQuery, TResult>,
-                DefaultDetailsQueryHandler<TQuery, TResult>>();
+                DefaultDetailsQueryHandler<TQuery, TEntity, TResult>>();
         }
 
         #endregion Handlers
@@ -148,7 +148,7 @@ namespace UsersVoice.Services.API
         private static IEnumerable<Assembly> GetAssemblies()
         {
             yield return typeof(IMediator).GetTypeInfo().Assembly;
-            yield return typeof(DefaultArchiveQueryHandler<,>).GetTypeInfo().Assembly;
+            yield return typeof(DefaultArchiveQueryHandler<,,>).GetTypeInfo().Assembly;
             yield return typeof(IdeaCreatedEventHandler).GetTypeInfo().Assembly;
         }
     }

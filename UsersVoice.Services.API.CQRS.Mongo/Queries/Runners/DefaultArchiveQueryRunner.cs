@@ -7,7 +7,7 @@ using UsersVoice.Services.Infrastructure.Common;
 
 namespace UsersVoice.Services.API.CQRS.Mongo.Queries.Runners
 {
-    public class DefaultArchiveQueryRunner<TEntity, TModel> : IQueryRunner<PagedCollection<TModel>>
+    public class DefaultArchiveQueryRunner<TModel> : IQueryRunner<PagedCollection<TModel>>
     {
         private readonly IMongoQueryExecutor _mongoQueryExecutor;
 
@@ -18,7 +18,7 @@ namespace UsersVoice.Services.API.CQRS.Mongo.Queries.Runners
             _mongoQueryExecutor = mongoQueryExecutor;
         }
 
-        public async Task<PagedCollection<TModel>> RunAsync(IQueryDefinition filter)
+        public async Task<PagedCollection<TModel>> RunAsync<TEntity>(IQueryDefinition<TEntity> filter)
         {
             if (filter == null) throw new ArgumentNullException("filter");
 

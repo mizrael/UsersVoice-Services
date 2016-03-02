@@ -4,6 +4,6 @@ namespace UsersVoice.Services.Common.CQRS.Queries
 {
     public interface IQueryRunner<TResult>
     {
-        Task<TResult> RunAsync(IQueryDefinition filter);
+        Task<TResult> RunAsync<TEntity>(IQueryDefinition<TEntity> filter);
     }
 }
