@@ -99,6 +99,7 @@
     <Compile Include="FakeAsyncCursor.cs" />
     <Compile Include="FakeFindFluent.cs" />
     <Compile Include="FakeMongoDatabaseFactory.cs" />
+    <Compile Include="MongoQueryExecutorTests.cs" />
     <Compile Include="Queries\QueriesDbContextTests.cs" />
     <Compile Include="RepositoryFactoryTests.cs" />
     <Compile Include="RepositoryOptionsTests.cs" />
@@ -111,6 +112,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\UsersVoice.Services.Common.CQRS\UsersVoice.Services.Common.CQRS.csproj">
+      <Project>{0FA09A37-B614-49F4-BCE5-BF6E14D7CB76}</Project>
+      <Name>UsersVoice.Services.Common.CQRS</Name>
+    </ProjectReference>
     <ProjectReference Include="..\UsersVoice.Services.Infrastructure.Common\UsersVoice.Services.Infrastructure.Common.csproj">
       <Project>{E711AD99-5B71-415B-920E-FD05AC3AA7C8}</Project>
       <Name>UsersVoice.Services.Infrastructure.Common</Name>

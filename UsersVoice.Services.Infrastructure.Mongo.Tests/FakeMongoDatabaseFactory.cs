@@ -23,6 +23,7 @@ namespace UsersVoice.Services.Infrastructure.Mongo.Tests
             SetupEntity<UsersVoice.Infrastructure.Mongo.Queries.Entities.Idea>(dbMock, "ideas");
             SetupEntity<UsersVoice.Infrastructure.Mongo.Queries.Entities.Area>(dbMock, "areas");
             SetupEntity<UsersVoice.Infrastructure.Mongo.Queries.Entities.IdeaComment>(dbMock, "ideaComments");
+            SetupEntity<UsersVoice.Infrastructure.Mongo.Queries.Entities.Tag>(dbMock, "tags");
         }
 
         private void SetupCommandEntities(Mock<IMongoDatabase> dbMock)
@@ -31,6 +32,9 @@ namespace UsersVoice.Services.Infrastructure.Mongo.Tests
             SetupEntity<UsersVoice.Infrastructure.Mongo.Commands.Entities.Idea>(dbMock, "ideas");
             SetupEntity<UsersVoice.Infrastructure.Mongo.Commands.Entities.Area>(dbMock, "areas");
             SetupEntity<UsersVoice.Infrastructure.Mongo.Commands.Entities.IdeaComment>(dbMock, "ideaComments");
+            SetupEntity<UsersVoice.Infrastructure.Mongo.Commands.Entities.Tag>(dbMock, "tags");
+            SetupEntity<UsersVoice.Infrastructure.Mongo.Commands.Entities.IdeaTag>(dbMock, "ideaTags");
+            SetupEntity<UsersVoice.Infrastructure.Mongo.Commands.Entities.UserTag>(dbMock, "userTags");
         }
 
         private void SetupEntity<TEntity>(Mock<IMongoDatabase> dbMock, string collectionName)
