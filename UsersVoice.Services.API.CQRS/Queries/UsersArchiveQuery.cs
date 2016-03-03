@@ -12,8 +12,8 @@ namespace UsersVoice.Services.API.CQRS.Queries
         public string CompleteName { get; set; }
         
         public string Email{ get; set; }
-
-        public IEnumerable<string> Tags { get; set; } 
+        public IEnumerable<string> Tags { get; set; }
+        public TagFilterOperation TagOperation { get; set; }
 
         public UserSortBy SortBy { get; set; }
         public SortDirection SortDirection { get; set; }

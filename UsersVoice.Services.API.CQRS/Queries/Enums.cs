@@ -36,4 +36,10 @@
         None,
         Text,
     }
+
+    public enum TagFilterOperation
+    {
+        Any,
+        All
+    }
 }

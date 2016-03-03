@@ -2,10 +2,17 @@
 
 namespace UsersVoice.Infrastructure.Mongo.Queries.Entities
 {
-    public class Tag
+    /// <summary>
+    /// base class for Tags used as embedded document
+    /// </summary>
+    public class BaseTag
     {
-        public Guid Id { get; set; }
         public string Text { get; set; }
         public string Slug { get; set; }
+    }
+
+    public class Tag : BaseTag
+    {
+        public Guid Id { get; set; }
     }
 }

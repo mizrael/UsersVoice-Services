@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Linq.Expressions;
 using System.Text.RegularExpressions;
 using MongoDB.Bson;
@@ -8,6 +9,7 @@ using UsersVoice.Infrastructure.Mongo.Queries;
 using UsersVoice.Infrastructure.Mongo.Queries.Entities;
 using UsersVoice.Services.API.CQRS.Queries;
 using UsersVoice.Services.Common.CQRS.Queries;
+using Tag = UsersVoice.Infrastructure.Mongo.Queries.Entities.Tag;
 
 namespace UsersVoice.Services.API.CQRS.Mongo.Queries.QueryDefinitionFactories
 {
@@ -39,10 +41,32 @@ namespace UsersVoice.Services.API.CQRS.Mongo.Queries.QueryDefinitionFactories
             if (!string.IsNullOrWhiteSpace(query.Email))
                 filters.Add(builder.Eq(v => v.Email, query.Email));
 
+            if (null != query.Tags && query.Tags.Any())
+            {
+                FilterDefinition<User> filter = null;
+
+                if (query.TagOperation == TagFilterOperation.All)
+                {
+                    filter = Builders<User>.Filter.And(
+                        query.Tags.Select(slug =>
+                            Builders<User>.Filter.ElemMatch(i => i.Tags,
+                                Builders<BaseTag>.Filter.Eq(t => t.Slug, slug))
+                            ).ToArray()
+                        );
+                }
+                else
+                {
+                    var innerFilter = Builders<BaseTag>.Filter.In(t => t.Slug, query.Tags);
+                    filter = Builders<User>.Filter.ElemMatch(i => i.Tags, innerFilter);
+                }
+
+                filters.Add(filter);
+            }
+
             var sorting = SortingBuilder.BuildSorting(query.SortBy, query.SortDirection, GetSortingField);
 
-            var filter = new MongoPagingQueryDefinition<User>(_db.Users, builder.And(filters), query, sorting);
-            return filter;
+            var queryDef = new MongoPagingQueryDefinition<User>(_db.Users, builder.And(filters), query, sorting);
+            return queryDef;
         }
 
         private static Expression<Func<User, object>> GetSortingField(UserSortBy sortBy)

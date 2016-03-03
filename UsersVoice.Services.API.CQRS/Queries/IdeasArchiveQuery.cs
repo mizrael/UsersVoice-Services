@@ -26,10 +26,4 @@ namespace UsersVoice.Services.API.CQRS.Queries
         public IdeaSortBy SortBy { get; set; }
         public SortDirection SortDirection { get; set; }
     }
-
-    public enum TagFilterOperation
-    {
-        Any,
-        All
-    }
 }

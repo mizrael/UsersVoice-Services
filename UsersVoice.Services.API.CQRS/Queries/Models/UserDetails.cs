@@ -12,5 +12,6 @@ namespace UsersVoice.Services.API.CQRS.Queries.Models
         public int IdeasCount { get; set; }
         public int CommentsCount { get; set; }
         public bool IsAdmin { get; set; }
+        public string[] Tags { get; set; } 
     }
 }

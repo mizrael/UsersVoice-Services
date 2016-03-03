@@ -10,5 +10,6 @@ namespace UsersVoice.Services.API.CQRS.Queries.Models
         public string Email { get; set; }
         public int AvailablePoints { get; set; }
         public bool IsAdmin { get; set; }
+        public string[] Tags { get; set; } 
     }
 }

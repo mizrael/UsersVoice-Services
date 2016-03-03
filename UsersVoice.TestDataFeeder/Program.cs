@@ -101,7 +101,7 @@ namespace UsersVoice.TestDataFeeder
             var firstNamesIndex = 0;
             var lastNamesIndex = 0;
 
-            usersCount = 100;
+            usersCount = 1000;
 
             var firstNames =
                 new string[]
@@ -213,7 +213,7 @@ namespace UsersVoice.TestDataFeeder
 
             var commandHandler = new CreateIdeaCommandHandler(commandsDbContext, bus, null);
 
-            var ideasPerAreaCount = 100;
+            var ideasPerAreaCount = 500;
 
             foreach (var area in areas)
                 for (int i = 0; i != ideasPerAreaCount; ++i)
