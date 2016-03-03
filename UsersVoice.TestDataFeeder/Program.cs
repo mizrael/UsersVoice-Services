@@ -41,13 +41,14 @@ namespace UsersVoice.TestDataFeeder
             var mediator = container.GetInstance<IMediator>();
             var commandsDbContext = container.GetInstance<ICommandsDbContext>();
 
-            Console.Write("creating users...");
-            Task.WaitAll(CreateUsersAsync(commandsDbContext, mediator));
-            Console.WriteLine("done!");
+            Console.WriteLine("creating tags...");
+            Console.WriteLine("creating users...");
 
-            Console.Write("creating tags...");
-            Task.WaitAll(CreateTagsAsync(commandsDbContext, mediator));
-            Console.WriteLine("done!");
+            Task.WaitAll(CreateTagsAsync(commandsDbContext, mediator),
+                         CreateUsersAsync(commandsDbContext, mediator));
+
+            Console.WriteLine("creating tags done!");
+            Console.WriteLine("creating users done!");
 
             Console.Write("creating areas...");
             Task.WaitAll(CreateAreasAsync(commandsDbContext, mediator));
@@ -57,9 +58,15 @@ namespace UsersVoice.TestDataFeeder
             Task.WaitAll(CreateIdeasAsync(commandsDbContext, mediator));
             Console.WriteLine("done!");
 
-            Console.Write("creating idea comments...");
-            Task.WaitAll(CreateIdeaCommentsAsync(commandsDbContext, mediator));
-            Console.WriteLine("done!");
+            Console.WriteLine("creating idea comments...");
+            Console.WriteLine("creating idea tags...");
+            Console.WriteLine("creating user tags...");
+            Task.WaitAll(CreateIdeaCommentsAsync(commandsDbContext, mediator),
+                         CreateIdeaTagsAsync(commandsDbContext, mediator),
+                         CreateUserTagsAsync(commandsDbContext, mediator));
+            Console.WriteLine("creating idea tags done!");
+            Console.WriteLine("creating user tags done!");
+            Console.WriteLine("creating idea comments done!");
 
             Console.WriteLine("Feeding complete!");
             Console.ReadLine();
@@ -216,6 +223,46 @@ namespace UsersVoice.TestDataFeeder
                     var command = new CreateIdea(Guid.NewGuid(), area.Id, author.Id, RandomTextGenerator.GetRandomSentence(5), RandomTextGenerator.GetRandomParagraph(3));
                     await commandHandler.Handle(command);
                 }
+        }
+
+        private static async Task CreateIdeaTagsAsync(ICommandsDbContext commandsDbContext, IMediator bus)
+        {
+            var tags = await commandsDbContext.Tags.Find("{}").ToListAsync();
+            var ideas = await commandsDbContext.Ideas.Find("{}").ToListAsync();
+
+            var rand = new Random();
+            var handler = new CreateIdeaTagCommandHandler(commandsDbContext, bus, null);
+            foreach (var idea in ideas)
+            {
+                var ideaTags = tags.OrderBy(t => Guid.NewGuid())
+                                   .Take(rand.Next(5))
+                                   .Select(t => new CreateIdeaTag(t.Id, idea.Id))
+                                   .ToArray();
+
+                var tasks = ideaTags.Select(t => handler.Handle(t)).ToArray();
+
+                Task.WaitAll(tasks);
+            }
+        }
+
+        private static async Task CreateUserTagsAsync(ICommandsDbContext commandsDbContext, IMediator bus)
+        {
+            var tags = await commandsDbContext.Tags.Find("{}").ToListAsync();
+            var users = await commandsDbContext.Users.Find("{}").ToListAsync();
+
+            var rand = new Random();
+            var handler = new CreateUserTagCommandHandler(commandsDbContext, bus, null);
+            foreach (var user in users)
+            {
+                var ideaTags = tags.OrderBy(t => Guid.NewGuid())
+                                   .Take(rand.Next(5))
+                                   .Select(t => new CreateUserTag(t.Id, user.Id))
+                                   .ToArray();
+
+                var tasks = ideaTags.Select(t => handler.Handle(t)).ToArray();
+
+                Task.WaitAll(tasks);
+            }
         }
 
         private static async Task CreateIdeaCommentsAsync(ICommandsDbContext commandsDbContext, IMediator bus)

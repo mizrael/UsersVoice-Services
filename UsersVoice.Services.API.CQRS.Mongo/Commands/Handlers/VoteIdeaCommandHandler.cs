@@ -45,10 +45,10 @@ namespace UsersVoice.Services.API.CQRS.Mongo.Commands.Handlers
                 Points = command.Points
             });
 
-            await _commandsDb.Ideas.FindOneAndReplaceAsync(d => d.Id == command.IdeaId, idea);
+            await _commandsDb.Ideas.UpsertOneAsync(d => d.Id == command.IdeaId, idea);
 
             voter.AvailablePoints -= Math.Abs(command.Points);
-            await _commandsDb.Users.FindOneAndReplaceAsync(u => u.Id == voter.Id, voter);
+            await _commandsDb.Users.UpsertOneAsync(u => u.Id == voter.Id, voter);
 
             await _bus.PublishAsync(new IdeaVoted(idea.Id, voter.Id));
         }

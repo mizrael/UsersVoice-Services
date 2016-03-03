@@ -32,8 +32,8 @@ namespace UsersVoice.Services.API.CQRS.Mongo.Commands.Handlers
                 UserId = command.UserId,
                 TagId = command.TagId
             };
-            await _commandsDb.UserTags.InsertOneAsync(entity);
-
+            await _commandsDb.UserTags.UpsertOneAsync(it => it.UserId == command.UserId && it.TagId == command.TagId, entity);
+            
             await _bus.PublishAsync(new UserTagCreated(entity.UserId, entity.TagId));
         }
     }

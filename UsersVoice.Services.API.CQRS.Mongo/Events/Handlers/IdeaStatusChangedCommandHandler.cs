@@ -34,7 +34,7 @@ namespace UsersVoice.Services.API.CQRS.Mongo.Events.Handlers
 
             destIdea.Status = (UsersVoice.Infrastructure.Mongo.Queries.Entities.Idea.IdeaStatus) srcIdea.Status;
 
-            await _queryDb.Ideas.FindOneAndReplaceAsync(i=> i.Id == destIdea.Id, destIdea);
+            await _queryDb.Ideas.UpsertOneAsync(i => i.Id == destIdea.Id, destIdea);
         }
     }
 }

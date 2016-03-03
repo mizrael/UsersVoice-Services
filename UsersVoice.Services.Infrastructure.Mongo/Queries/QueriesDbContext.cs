@@ -18,12 +18,17 @@ namespace UsersVoice.Infrastructure.Mongo.Queries
             var connStr = new ConnectionString(connectionString);
 
             this.Users = repoFactory.Create<User>(new RepositoryOptions(connectionString, connStr.DatabaseName, "users"));
+            var userIndexBuilder = new IndexKeysDefinitionBuilder<User>();
+            this.Users.CreateIndex(userIndexBuilder.Ascending(i => i.Tags));
+            this.Users.CreateIndex(userIndexBuilder.Ascending(i => i.Email));
+
             this.Areas = repoFactory.Create<Area>(new RepositoryOptions(connectionString, connStr.DatabaseName, "areas"));
 
             this.Ideas = repoFactory.Create<Idea>(new RepositoryOptions(connectionString, connStr.DatabaseName, "ideas"));
             var ideaIndexBuilder = new IndexKeysDefinitionBuilder<Idea>();
             this.Ideas.CreateIndex(ideaIndexBuilder.Ascending(i => i.AuthorId));
             this.Ideas.CreateIndex(ideaIndexBuilder.Ascending(i => i.AreaId));
+            this.Ideas.CreateIndex(ideaIndexBuilder.Ascending(i => i.Tags));
             this.Ideas.CreateIndex(ideaIndexBuilder.Ascending(i => i.CreationDate));
 
             this.IdeaComments = repoFactory.Create<IdeaComment>(new RepositoryOptions(connectionString, connStr.DatabaseName, "ideaComments"));
@@ -33,6 +38,8 @@ namespace UsersVoice.Infrastructure.Mongo.Queries
             this.IdeaComments.CreateIndex(commentsIndexBuilder.Ascending(i => i.CreationDate));
 
             this.Tags = repoFactory.Create<Entities.Tag>(new RepositoryOptions(connectionString, connStr.DatabaseName, "tags"));
+            var tagIndexBuilder = new IndexKeysDefinitionBuilder<Entities.Tag>();
+            this.Tags.CreateIndex(tagIndexBuilder.Ascending(i => i.Slug));
         }
 
         public IRepository<User> Users { get; private set; }

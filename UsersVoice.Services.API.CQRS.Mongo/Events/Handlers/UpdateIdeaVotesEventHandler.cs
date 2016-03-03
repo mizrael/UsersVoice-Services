@@ -64,7 +64,7 @@ namespace UsersVoice.Services.API.CQRS.Mongo.Events.Handlers
 
             destIdea.TotalPoints = destIdea.Votes.Sum(iv => iv.Points);
 
-            await _queryDb.Ideas.FindOneAndReplaceAsync(d => d.Id == destIdea.Id, destIdea);
+            await _queryDb.Ideas.UpsertOneAsync(d => d.Id == destIdea.Id, destIdea);
         }
 
     }

@@ -42,10 +42,10 @@ namespace UsersVoice.Services.API.CQRS.Mongo.Commands.Handlers
                 throw new AccessViolationException("user has not voted for this idea");
 
             idea.Votes.Remove(vote);
-            await _commandsDb.Ideas.FindOneAndReplaceAsync(u => u.Id == idea.Id, idea);
+            await _commandsDb.Ideas.UpsertOneAsync(u => u.Id == idea.Id, idea);
 
             voter.AvailablePoints += Math.Abs(vote.Points);
-            await _commandsDb.Users.FindOneAndReplaceAsync(u => u.Id == voter.Id, voter);
+            await _commandsDb.Users.UpsertOneAsync(u => u.Id == voter.Id, voter);
 
             await _bus.PublishAsync(new IdeaUnvoted(idea.Id, voter.Id));
         }

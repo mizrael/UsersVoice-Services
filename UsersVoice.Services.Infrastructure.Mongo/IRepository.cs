@@ -21,9 +21,6 @@ namespace UsersVoice.Infrastructure.Mongo
         IFindFluent<TEntity, TEntity> Find(FilterDefinition<TEntity> filter);
         IFindFluent<TEntity, TEntity> Find(FilterDefinition<TEntity> filter, FindOptions options);
 
-        Task<TEntity> FindOneAndReplaceAsync(FilterDefinition<TEntity> filter, TEntity replacement);
-        Task<TEntity> FindOneAndReplaceAsync(Expression<Func<TEntity, bool>> filter, TEntity replacement);
-
         Task InsertOneAsync(TEntity entity);
 
         Task<TEntity> UpsertOneAsync(Expression<Func<TEntity, bool>> filter, TEntity entity);

@@ -67,10 +67,10 @@ namespace UsersVoice.Services.API.CQRS.Mongo.Events.Handlers
                 return;
 
             srcUser.AvailablePoints += pointsToAdd;
-            await _commandsDb.Users.FindOneAndReplaceAsync(u => u.Id == srcUser.Id, srcUser);
+            await _commandsDb.Users.UpsertOneAsync(u => u.Id == srcUser.Id, srcUser);
 
             destUser.AvailablePoints += pointsToAdd;
-            await _queryDb.Users.FindOneAndReplaceAsync(u => u.Id == destUser.Id, destUser);
+            await _queryDb.Users.UpsertOneAsync(u => u.Id == destUser.Id, destUser);
         }
 
         public async Task Handle(CQRS.Events.IdeaVoted @event)
@@ -96,7 +96,7 @@ namespace UsersVoice.Services.API.CQRS.Mongo.Events.Handlers
                 throw new ArgumentException("invalid user id: " + @event.VoterId);
 
             destUser.AvailablePoints = srcUser.AvailablePoints;
-            await _queryDb.Users.FindOneAndReplaceAsync(u => u.Id == destUser.Id, destUser);
+            await _queryDb.Users.UpsertOneAsync(u => u.Id == destUser.Id, destUser);
         }
     }
 }

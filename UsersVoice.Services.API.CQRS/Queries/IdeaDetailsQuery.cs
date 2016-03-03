@@ -14,6 +14,6 @@ namespace UsersVoice.Services.API.CQRS.Queries
             this.IdeaId = ideaId;
         }
 
-        public Guid IdeaId{ get; private set; }
+        public Guid IdeaId { get; private set; }
     }
 }

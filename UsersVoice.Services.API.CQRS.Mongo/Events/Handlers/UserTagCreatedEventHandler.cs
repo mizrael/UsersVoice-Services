@@ -36,7 +36,7 @@ namespace UsersVoice.Services.API.CQRS.Mongo.Events.Handlers
 
             user.Tags.Add(tag);
 
-            await _queryDb.Users.FindOneAndReplaceAsync(i => i.Id == user.Id, user);
+            await _queryDb.Users.UpsertOneAsync(i => i.Id == user.Id, user);
         }
     }
 }

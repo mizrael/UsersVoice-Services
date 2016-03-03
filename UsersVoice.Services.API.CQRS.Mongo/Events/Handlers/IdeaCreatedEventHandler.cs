@@ -50,7 +50,7 @@ namespace UsersVoice.Services.API.CQRS.Mongo.Events.Handlers
             await _queryDb.Ideas.InsertOneAsync(newIdea);
 
             author.IdeasCount++;
-            await _queryDb.Users.FindOneAndReplaceAsync(u => u.Id == author.Id, author);
+            await _queryDb.Users.UpsertOneAsync(u => u.Id == author.Id, author);
         }
     }
 }

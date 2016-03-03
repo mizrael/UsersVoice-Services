@@ -32,7 +32,7 @@ namespace UsersVoice.Services.API.CQRS.Mongo.Commands.Handlers
                 IdeaId = command.IdeaId,
                 TagId = command.TagId
             };
-            await _commandsDb.IdeaTags.InsertOneAsync(entity);
+            await _commandsDb.IdeaTags.UpsertOneAsync(it => it.IdeaId == command.IdeaId && it.TagId == command.TagId, entity);
 
             await _bus.PublishAsync(new IdeaTagCreated(entity.IdeaId, entity.TagId));
         }

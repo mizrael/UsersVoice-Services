@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Linq.Expressions;
 using System.Text.RegularExpressions;
 using MongoDB.Bson;
@@ -8,7 +9,7 @@ using UsersVoice.Infrastructure.Mongo.Queries;
 using UsersVoice.Infrastructure.Mongo.Queries.Entities;
 using UsersVoice.Services.API.CQRS.Queries;
 using UsersVoice.Services.Common.CQRS.Queries;
-
+using Tag = UsersVoice.Infrastructure.Mongo.Queries.Entities.Tag;
 namespace UsersVoice.Services.API.CQRS.Mongo.Queries.QueryDefinitionFactories
 {
     public class IdeasArchiveQueryDefinitionFactory : IQueryDefinitionFactory<IdeasArchiveQuery, Idea>
@@ -53,6 +54,28 @@ namespace UsersVoice.Services.API.CQRS.Mongo.Queries.QueryDefinitionFactories
             {
                 var areaIdFilter = Builders<Idea>.Filter.Eq(i => i.AreaId, query.AreaId);
                 filters.Add(areaIdFilter);
+            }
+
+            if (null != query.Tags && query.Tags.Any())
+            {
+                FilterDefinition<Idea> filter = null;
+
+                if (query.TagOperation == TagFilterOperation.All)
+                {
+                    filter = Builders<Idea>.Filter.And(
+                        query.Tags.Select(slug =>
+                            Builders<Idea>.Filter.ElemMatch(i => i.Tags,
+                                Builders<Tag>.Filter.Eq(t => t.Slug, slug))
+                            ).ToArray()
+                        );
+                }
+                else
+                {
+                    var innerFilter = Builders<Tag>.Filter.In(t => t.Slug, query.Tags);
+                    filter = Builders<Idea>.Filter.ElemMatch(i => i.Tags, innerFilter);
+                }
+
+                filters.Add(filter);
             }
 
             var sorting = SortingBuilder.BuildSorting(query.SortBy, query.SortDirection, GetSortingField);

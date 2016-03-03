@@ -49,10 +49,10 @@ namespace UsersVoice.Services.API.CQRS.Mongo.Events.Handlers
             await _queryDb.IdeaComments.InsertOneAsync(newComment);
 
             idea.TotalComments++;
-            await _queryDb.Ideas.FindOneAndReplaceAsync(i => i.Id == idea.Id, idea);
+            await _queryDb.Ideas.UpsertOneAsync(i => i.Id == idea.Id, idea);
 
             author.CommentsCount++;
-            await _queryDb.Users.FindOneAndReplaceAsync(u => u.Id == author.Id, author);
+            await _queryDb.Users.UpsertOneAsync(u => u.Id == author.Id, author);
         }
     }
 }

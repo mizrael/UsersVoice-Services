@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using UsersVoice.Infrastructure.Mongo.Queries;
 using UsersVoice.Services.API.CQRS.Queries.Models;
 using UsersVoice.Services.Common.CQRS.Queries;
@@ -17,9 +18,18 @@ namespace UsersVoice.Services.API.CQRS.Queries
 
         public Guid AreaId { get; set; }
 
+        public IEnumerable<string> Tags { get; set; }
+        public TagFilterOperation TagOperation { get; set; }
+
         public IdeaStatusQuery Status { get; set; }
 
         public IdeaSortBy SortBy { get; set; }
         public SortDirection SortDirection { get; set; }
+    }
+
+    public enum TagFilterOperation
+    {
+        Any,
+        All
     }
 }

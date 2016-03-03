@@ -49,7 +49,7 @@ namespace UsersVoice.Services.API.CQRS.Mongo.Commands.Handlers
 
             idea.Status = Idea.IdeaStatus.Cancelled;
 
-            await _commandsDb.Ideas.FindOneAndReplaceAsync(d => d.Id == command.IdeaId, idea);
+            await _commandsDb.Ideas.UpsertOneAsync(d => d.Id == command.IdeaId, idea);
 
             await _bus.PublishAsync(new IdeaStatusChanged(idea.Id));
         }

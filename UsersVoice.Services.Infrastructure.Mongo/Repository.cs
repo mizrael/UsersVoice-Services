@@ -72,15 +72,6 @@ namespace UsersVoice.Infrastructure.Mongo
             return _collection.Find(filter, options);
         }
 
-        public Task<TEntity> FindOneAndReplaceAsync(FilterDefinition<TEntity> filter, TEntity replacement)
-        {
-            return _collection.FindOneAndReplaceAsync(filter, replacement);
-        }
-        public Task<TEntity> FindOneAndReplaceAsync(Expression<Func<TEntity, bool>> filter, TEntity replacement)
-        {
-            return _collection.FindOneAndReplaceAsync(filter, replacement);
-        }
-
         public Task InsertOneAsync(TEntity entity)
         {
             return _collection.InsertOneAsync(entity);
