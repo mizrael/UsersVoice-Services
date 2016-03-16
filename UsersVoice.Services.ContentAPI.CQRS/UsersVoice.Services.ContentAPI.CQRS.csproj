@@ -9,8 +9,9 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>UsersVoice.Services.ContentAPI.CQRS</RootNamespace>
     <AssemblyName>UsersVoice.Services.ContentAPI.CQRS</AssemblyName>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -53,7 +54,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\UsersVoice.Services.Common.CQRS\UsersVoice.Services.Common.CQRS.csproj">
-      <Project>{0FA09A37-B614-49F4-BCE5-BF6E14D7CB76}</Project>
+      <Project>{0fa09a37-b614-49f4-bce5-bf6e14d7cb76}</Project>
       <Name>UsersVoice.Services.Common.CQRS</Name>
     </ProjectReference>
   </ItemGroup>

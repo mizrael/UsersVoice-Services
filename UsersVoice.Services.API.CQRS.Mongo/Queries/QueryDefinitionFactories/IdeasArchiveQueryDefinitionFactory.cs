@@ -66,13 +66,13 @@ namespace UsersVoice.Services.API.CQRS.Mongo.Queries.QueryDefinitionFactories
                     filter = Builders<Idea>.Filter.And(
                         query.Tags.Select(slug =>
                             Builders<Idea>.Filter.ElemMatch(i => i.Tags,
-                                Builders<BaseTag>.Filter.Eq(t => t.Slug, slug))
+                                Builders<TagBase>.Filter.Eq(t => t.Slug, slug))
                             ).ToArray()
                         );
                 }
                 else
                 {
-                    var innerFilter = Builders<BaseTag>.Filter.In(t => t.Slug, query.Tags);
+                    var innerFilter = Builders<TagBase>.Filter.In(t => t.Slug, query.Tags);
                     filter = Builders<Idea>.Filter.ElemMatch(i => i.Tags, innerFilter);
                 }
 

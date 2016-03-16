@@ -34,7 +34,7 @@ namespace UsersVoice.Services.API.CQRS.Mongo.Events.Handlers
                 await _commandsDb.UserTags.Find(t => t.UserId == user.Id).Project(it => it.TagId).ToListAsync();
 
             var ideaTags = await _queryDb.Tags.Find(t => userTagIds.Contains(t.Id))
-                .Project(t => new BaseTag()
+                .Project(t => new TagBase()
                 {
                     Slug = t.Slug,
                     Text = t.Text

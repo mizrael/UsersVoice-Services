@@ -7,7 +7,7 @@ namespace UsersVoice.Infrastructure.Mongo.Queries.Entities
     {
         public User()
         {
-            Tags = new List<BaseTag>();
+            Tags = new List<TagBase>();
         }
 
         public Guid Id { get; set; }
@@ -24,6 +24,6 @@ namespace UsersVoice.Infrastructure.Mongo.Queries.Entities
         public int IdeasCount { get; set; }
         public int CommentsCount { get; set; }
         public bool IsAdmin { get; set; }
-        public IList<BaseTag> Tags { get; private set; }
+        public IList<TagBase> Tags { get; private set; }
     }
 }

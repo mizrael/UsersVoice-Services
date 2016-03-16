@@ -9,7 +9,7 @@ namespace UsersVoice.Infrastructure.Mongo.Queries.Entities
         {
             this.Votes = new List<IdeaVote>();
 
-            this.Tags = new List<BaseTag>();
+            this.Tags = new List<TagBase>();
 
             this.Status = IdeaStatus.Nothing;
         }
@@ -23,7 +23,7 @@ namespace UsersVoice.Infrastructure.Mongo.Queries.Entities
         public string AuthorCompleteName { get; set; }
         public DateTime CreationDate { get; set; }
         public IList<IdeaVote> Votes { get; private set; }
-        public IList<BaseTag> Tags { get; private set; }
+        public IList<TagBase> Tags { get; private set; }
         public int TotalPoints { get; set; }
         public int TotalComments { get; set; }
         public IdeaStatus Status { get; set; }

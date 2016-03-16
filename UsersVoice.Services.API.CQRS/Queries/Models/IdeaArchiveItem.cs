@@ -21,6 +21,6 @@ namespace UsersVoice.Services.API.CQRS.Queries.Models
 
         public IdeaStatus Status { get; set; }
 
-        public string[] Tags { get; set; } 
+        public TagBase[] Tags { get; set; } 
     }
 }
