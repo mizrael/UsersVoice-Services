@@ -14,6 +14,7 @@ namespace UsersVoice.Infrastructure.Mongo
         Task CreateIndexAsync(IndexKeysDefinition<TEntity> indexDefinition, CreateIndexOptions options);
 
         Task<long> CountAsync(FilterDefinition<TEntity> filter);
+        Task<long> CountAsync(Expression<Func<TEntity, bool>> filter);
 
         IFindFluent<TEntity, TEntity> Find(Expression<Func<TEntity, bool>> filter);
         IFindFluent<TEntity, TEntity> Find(Expression<Func<TEntity, bool>> filter, FindOptions options);

@@ -1,4 +1,5 @@
 ﻿using System;
+using UsersVoice.Services.Common.CQRS.Queries;
 
 namespace UsersVoice.Services.API.CQRS.Queries.Models
 {

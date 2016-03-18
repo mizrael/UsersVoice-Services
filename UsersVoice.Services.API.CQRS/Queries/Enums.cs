@@ -30,16 +30,4 @@
         None,
         CreationDate
     }
-
-    public enum TagSortBy
-    {
-        None,
-        Text,
-    }
-
-    public enum TagFilterOperation
-    {
-        Any,
-        All
-    }
 }

@@ -1,7 +1,6 @@
-using System.Linq;
+using AutoMapper;
 using UsersVoice.Infrastructure.Mongo.Queries.Entities;
 using UsersVoice.Services.API.CQRS.Queries.Models;
-using TagBase = UsersVoice.Infrastructure.Mongo.Queries.Entities.TagBase;
 
 namespace UsersVoice.Services.API
 {
@@ -9,20 +8,21 @@ namespace UsersVoice.Services.API
     {
         public static void RegisterMappers()
         {
-            AutoMapper.Mapper.CreateMap<TagBase, CQRS.Queries.Models.TagBase>();
+            Mapper.Initialize(cfg =>
+            {
+                cfg.CreateMap<TagBase, Common.CQRS.Queries.TagBase>();
 
-            AutoMapper.Mapper.CreateMap<User, UserArchiveItem>();
-            AutoMapper.Mapper.CreateMap<User, UserDetails>();
+                cfg.CreateMap<User, UserArchiveItem>();
+                cfg.CreateMap<User, UserDetails>();
 
-            AutoMapper.Mapper.CreateMap<Area, AreaArchiveItem>();
-            AutoMapper.Mapper.CreateMap<Area, AreaDetails>();
+                cfg.CreateMap<Area, AreaArchiveItem>();
+                cfg.CreateMap<Area, AreaDetails>();
 
-            AutoMapper.Mapper.CreateMap<Idea, IdeaArchiveItem>();
-            AutoMapper.Mapper.CreateMap<Idea, IdeaDetails>();
+                cfg.CreateMap<Idea, IdeaArchiveItem>();
+                cfg.CreateMap<Idea, IdeaDetails>();
 
-            AutoMapper.Mapper.CreateMap<IdeaComment, IdeaCommentArchiveItem>();
-
-            AutoMapper.Mapper.CreateMap<Tag, TagArchiveItem>();
+                cfg.CreateMap<IdeaComment, IdeaCommentArchiveItem>();
+            });
         }
     }
 }

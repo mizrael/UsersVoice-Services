@@ -47,11 +47,15 @@
     <Compile Include="Commands\Handlers\BaseCommandHandler.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Queries\ArchiveQuery.cs" />
+    <Compile Include="Queries\Enums.cs" />
+    <Compile Include="Queries\Handlers\DefaultArchiveQueryHandler.cs" />
+    <Compile Include="Queries\Handlers\DefaultDetailsQueryHandler.cs" />
     <Compile Include="Queries\IMapper.cs" />
     <Compile Include="Queries\IQuery.cs" />
     <Compile Include="Queries\IQueryDefinition.cs" />
     <Compile Include="Queries\IQueryDefinitionFactory.cs" />
     <Compile Include="Queries\IQueryRunner.cs" />
+    <Compile Include="Queries\TagBase.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

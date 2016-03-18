@@ -48,7 +48,7 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=8.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\packages\Newtonsoft.Json.8.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <HintPath>..\packages\Newtonsoft.Json.8.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
@@ -103,7 +103,7 @@
     <Compile Include="Commands\Entities\Area.cs" />
     <Compile Include="Commands\Entities\IdeaComment.cs" />
     <Compile Include="Commands\Entities\Idea.cs" />
-    <Compile Include="Commands\Entities\IEntity.cs" />
+    <Compile Include="Commands\Entities\ICommandEntity.cs" />
     <Compile Include="Commands\Entities\Tag.cs" />
     <Compile Include="Commands\Entities\User.cs" />
     <Compile Include="Commands\ICommandsDbContext.cs" />
@@ -116,9 +116,11 @@
     <Compile Include="MongoQueryExecutor.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Queries\Entities\Area.cs" />
+    <Compile Include="Queries\Entities\IQueryEntity.cs" />
     <Compile Include="Queries\Entities\Idea.cs" />
     <Compile Include="Queries\Entities\IdeaComment.cs" />
     <Compile Include="Queries\Entities\Tag.cs" />
+    <Compile Include="Queries\Entities\TagBase.cs" />
     <Compile Include="Queries\Entities\User.cs" />
     <Compile Include="Queries\IQueriesDbContext.cs" />
     <Compile Include="Queries\MongoPagingQueryDefinition.cs" />

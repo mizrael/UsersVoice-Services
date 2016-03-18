@@ -100,11 +100,8 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
-    <Compile Include="Commands\Handlers\CreateTagCommandHandlerTests.cs" />
     <Compile Include="Commands\Handlers\VoteIdeaCommandHandlerTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Validators\CreateIdeaTagCommandValidatorTests.cs" />
-    <Compile Include="Validators\CreateUserTagCommandValidatorTests.cs" />
     <Compile Include="Validators\VoteIdeaCommandValidatorTests.cs" />
   </ItemGroup>
   <ItemGroup>

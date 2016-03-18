@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq.Expressions;
 using MongoDB.Driver;
+using SortDirection = UsersVoice.Services.Common.CQRS.Queries.SortDirection;
 
 namespace UsersVoice.Infrastructure.Mongo.Queries
 {
@@ -20,11 +21,5 @@ namespace UsersVoice.Infrastructure.Mongo.Queries
                 ? sortingBuilder.Ascending(sortingField)
                 : sortingBuilder.Descending(sortingField);
         }
-    }
-    
-    public enum SortDirection
-    {
-        ASC,
-        DESC
     }
 }

@@ -13,11 +13,6 @@ namespace UsersVoice.Services.Common.CQRS.Tests.Commands.Handlers
     [TestClass]
     public class BaseCommandHandlerTests
     {
-        [Fact]
-        public void should_throw_ArgumentNullException_if_handler_is_null()
-        {
-            Assert.Throws<ArgumentNullException>(() => new DummyCommandHandler(new DummyValidator()));
-        }
         
         [Fact]
         public async Task should_run_validator()
@@ -65,7 +60,7 @@ namespace UsersVoice.Services.Common.CQRS.Tests.Commands.Handlers
     {
         public Task<ValidationResult> ValidateAsync(DummyCommand value)
         {
-            throw new NotImplementedException();
+            return Task.FromResult(new ValidationResult(null));
         }
     }
 
@@ -76,7 +71,7 @@ namespace UsersVoice.Services.Common.CQRS.Tests.Commands.Handlers
         }
         protected override Task RunCommand(DummyCommand command)
         {
-            throw new NotImplementedException();
+            return Task.CompletedTask;
         }
     }
 }

@@ -17,10 +17,9 @@ using UsersVoice.Services.API.CQRS.Mongo.Events.Handlers;
 using UsersVoice.Services.API.CQRS.Mongo.Queries.QueryDefinitionFactories;
 using UsersVoice.Services.API.CQRS.Mongo.Queries.Runners;
 using UsersVoice.Services.API.CQRS.Queries;
-using UsersVoice.Services.API.CQRS.Queries.Handlers;
 using UsersVoice.Services.API.CQRS.Queries.Models;
-using UsersVoice.Services.Common.CQRS.Commands.Handlers;
 using UsersVoice.Services.Common.CQRS.Queries;
+using UsersVoice.Services.Common.CQRS.Queries.Handlers;
 using UsersVoice.Services.Infrastructure.Common;
 using UsersVoice.Services.Infrastructure.Common.Services;
 
@@ -94,17 +93,12 @@ namespace UsersVoice.Services.API
             RegisterUserHandlers(container);
             RegisterAreaHandlers(container);
             RegisterIdeaHandlers(container);
-            RegisterTagHandlers(container);
         }
 
         private static void RegisterUserHandlers(Container container)
         {
             RegisterArchiveHandlers<User, UsersArchiveQueryDefinitionFactory, UsersArchiveQuery, UserArchiveItem>(container);
             RegisterDetailsHandlers<User, UserDetailsQueryDefinitionFactory, UserDetailsQuery, UserDetails>(container);
-        }
-        private static void RegisterTagHandlers(Container container)
-        {
-            RegisterArchiveHandlers<Tag, TagsArchiveQueryDefinitionFactory, TagsArchiveQuery, TagArchiveItem>(container);
         }
 
         private static void RegisterAreaHandlers(Container container)
@@ -124,6 +118,7 @@ namespace UsersVoice.Services.API
         }
 
         private static void RegisterArchiveHandlers<TEntity, TQueryDefFactory, TQuery, TResult>(Container container)
+            where TEntity : IQueryEntity
             where TQueryDefFactory : class, IQueryDefinitionFactory<TQuery, TEntity>
             where TQuery : MediatR.IAsyncRequest<PagedCollection<TResult>>, IQuery
         {

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace UsersVoice.Infrastructure.Mongo.Queries.Entities
 {
-    public class User
+    public class User : IQueryEntity
     {
         public User()
         {

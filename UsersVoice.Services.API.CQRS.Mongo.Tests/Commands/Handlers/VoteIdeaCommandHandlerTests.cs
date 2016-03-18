@@ -26,10 +26,10 @@ namespace UsersVoice.Services.API.CQRS.Mongo.Tests.Commands.Handlers
                                                         IMediator mediator = null)
         {
             ideas = ideas ?? Enumerable.Empty<Idea>();
-            var mockIdeasRepo = RepositoryHelpers.MockRepo(ideas.ToDictionary(i => i.Id));
+            var mockIdeasRepo = RepositoryHelpers.MockCommandsRepo(ideas.ToDictionary(i => i.Id));
 
             users = users ?? Enumerable.Empty<User>();
-            var mockUsersRepo = RepositoryHelpers.MockRepo(users.ToDictionary(i => i.Id));
+            var mockUsersRepo = RepositoryHelpers.MockCommandsRepo(users.ToDictionary(i => i.Id));
 
             var mockDbContext = new Mock<ICommandsDbContext>();
             mockDbContext.SetupGet(c => c.Ideas).Returns(mockIdeasRepo.Object);

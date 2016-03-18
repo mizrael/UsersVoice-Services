@@ -108,7 +108,7 @@ namespace UsersVoice.Services.Infrastructure.Mongo.Tests.Services
         }
 
         [Fact]
-        public async Task should_generate_slug_with_index_when_other_tags_present_with_different_slug()
+        public async Task should_generate_slug_with_no_index_when_other_tags_present_with_different_slug()
         {
             var tag = new Tag()
             {
@@ -132,9 +132,36 @@ namespace UsersVoice.Services.Infrastructure.Mongo.Tests.Services
             slug.ShouldBeEquivalentTo("lorem-ipsum");
         }
 
+        [Fact]
+        public async Task should_generate_same_slug_with_no_index_when_tag_is_already_in_db()
+        {
+            var tag = new Tag()
+            {
+                Id = Guid.NewGuid(),
+                Text = "Lorem Ipsum",
+                Slug = "lorem-ipsum"
+            };
+
+            var tags = new[]
+            {
+                tag,
+                new Tag()
+                {
+                    Id = Guid.NewGuid(),
+                    Text = "Dolor Amet",
+                    Slug = "dolor-amet"
+                }
+            };
+            var sut = CreateSut(tags.ToDictionary(t => t.Id));
+
+            var slug = await sut.FindSlugAsync(tag);
+
+            slug.ShouldBeEquivalentTo("lorem-ipsum");
+        }
+
         private static TagSlugFinder CreateSut(IDictionary<Guid, Tag> tags)
         {
-            var mockTagsRepo = RepositoryHelpers.MockRepo(tags);
+            var mockTagsRepo = RepositoryHelpers.MockCommandsRepo(tags);
 
             var mockDbContext = new Mock<ICommandsDbContext>();
             mockDbContext.SetupGet(c => c.Tags).Returns(mockTagsRepo.Object);

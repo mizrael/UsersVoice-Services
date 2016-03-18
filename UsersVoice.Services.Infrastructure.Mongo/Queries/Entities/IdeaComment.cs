@@ -2,7 +2,7 @@
 
 namespace UsersVoice.Infrastructure.Mongo.Queries.Entities
 {
-    public class IdeaComment
+    public class IdeaComment : IQueryEntity
     {
         public Guid Id { get; set; }
         public DateTime CreationDate { get; set; }

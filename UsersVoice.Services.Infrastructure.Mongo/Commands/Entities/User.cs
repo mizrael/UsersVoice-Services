@@ -2,7 +2,7 @@
 
 namespace UsersVoice.Infrastructure.Mongo.Commands.Entities
 {
-    public class User : IEntity
+    public class User : ICommandEntity
     {
         public Guid Id { get; set; }
         public string FirstName { get; set; }

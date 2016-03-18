@@ -50,11 +50,9 @@
     <Compile Include="Commands\CreateIdea.cs" />
     <Compile Include="Commands\UnvoteIdea.cs" />
     <Compile Include="Commands\ChangeIdeaStatus.cs" />
-    <Compile Include="Commands\CreateTag.cs" />
     <Compile Include="Commands\VoteIdea.cs" />
     <Compile Include="Events\AreaCreated.cs" />
     <Compile Include="Events\IdeaCommentCreated.cs" />
-    <Compile Include="Events\TagCreated.cs" />
     <Compile Include="Events\IdeaUnvoted.cs" />
     <Compile Include="Events\IdeaStatusChanged.cs" />
     <Compile Include="Events\IVoteNotification.cs" />
@@ -62,13 +60,10 @@
     <Compile Include="Events\IdeaVoted.cs" />
     <Compile Include="Events\IdeaCreated.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Queries\Handlers\DefaultArchiveQueryHandler.cs" />
-    <Compile Include="Queries\Handlers\DefaultDetailsQueryHandler.cs" />
     <Compile Include="Queries\AreaDetailsQuery.cs" />
     <Compile Include="Queries\AreasArchiveQuery.cs" />
     <Compile Include="Queries\IdeaCommentsArchiveQuery.cs" />
     <Compile Include="Queries\HasVotedQuery.cs" />
-    <Compile Include="Queries\TagsArchiveQuery.cs" />
     <Compile Include="Queries\IdeasArchiveQuery.cs" />
     <Compile Include="Queries\Enums.cs" />
     <Compile Include="Queries\Models\AreaArchiveItem.cs" />
@@ -76,15 +71,14 @@
     <Compile Include="Queries\Models\IdeaCommentArchiveItem.cs" />
     <Compile Include="Queries\Models\IdeaDetails.cs" />
     <Compile Include="Queries\Models\IdeaArchiveItem.cs" />
-    <Compile Include="Queries\Models\TagArchiveItem.cs" />
     <Compile Include="Queries\Models\UserDetails.cs" />
     <Compile Include="Queries\Models\UserArchiveItem.cs" />
     <Compile Include="Queries\IdeaDetailsQuery.cs" />
     <Compile Include="Queries\UsersArchiveQuery.cs" />
     <Compile Include="Queries\UserDetailsQuery.cs" />
-    <Compile Include="Validators\CreateTagCommandValidator.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>

@@ -2,7 +2,7 @@
 
 namespace UsersVoice.Infrastructure.Mongo.Queries.Entities
 {
-    public class Area
+    public class Area : IQueryEntity
     {
         public Guid Id { get; set; }
         public Guid AuthorId { get; set; }

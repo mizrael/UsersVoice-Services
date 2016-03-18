@@ -9,7 +9,7 @@ using UsersVoice.Infrastructure.Mongo.Queries;
 using UsersVoice.Infrastructure.Mongo.Queries.Entities;
 using UsersVoice.Services.API.CQRS.Queries;
 using UsersVoice.Services.Common.CQRS.Queries;
-using Tag = UsersVoice.Infrastructure.Mongo.Queries.Entities.Tag;
+using TagBase = UsersVoice.Infrastructure.Mongo.Queries.Entities.TagBase;
 
 namespace UsersVoice.Services.API.CQRS.Mongo.Queries.QueryDefinitionFactories
 {

@@ -1,0 +1,102 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{9DC78CF5-AD72-48C6-8DDE-F72DCDC78D87}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>UsersVoice.Services.TagAPI.CQRS.Mongo</RootNamespace>
+    <AssemblyName>UsersVoice.Services.TagAPI.CQRS.Mongo</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="MediatR, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\MediatR.2.0.2\lib\net45\MediatR.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="MongoDB.Bson, Version=2.2.3.3, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\MongoDB.Bson.2.2.3\lib\net45\MongoDB.Bson.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="MongoDB.Driver, Version=2.2.3.3, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\MongoDB.Driver.2.2.3\lib\net45\MongoDB.Driver.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="MongoDB.Driver.Core, Version=2.2.3.3, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\MongoDB.Driver.Core.2.2.3\lib\net45\MongoDB.Driver.Core.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Commands\Handlers\CreateIdeaTagCommandHandler.cs" />
+    <Compile Include="Commands\Handlers\CreateTagCommandHandler.cs" />
+    <Compile Include="Commands\Handlers\CreateUserTagCommandHandler.cs" />
+    <Compile Include="Commands\Handlers\UpdateTagCommandHandler.cs" />
+    <Compile Include="Events\Handlers\IdeaTagCreatedEventHandler.cs" />
+    <Compile Include="Events\Handlers\TagUpsertedEventHandler.cs" />
+    <Compile Include="Events\Handlers\UpdateTagIdeasCountEventHandler.cs" />
+    <Compile Include="Events\Handlers\UpdateTagUsersCountEventHandler.cs" />
+    <Compile Include="Events\Handlers\UserTagCreatedEventHandler.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Queries\QueryDefinitionFactories\TagsArchiveQueryDefinitionFactory.cs" />
+    <Compile Include="Validators\CreateIdeaTagCommandValidator.cs" />
+    <Compile Include="Validators\CreateUserTagCommandValidator.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\UsersVoice.Services.Common.CQRS\UsersVoice.Services.Common.CQRS.csproj">
+      <Project>{0FA09A37-B614-49F4-BCE5-BF6E14D7CB76}</Project>
+      <Name>UsersVoice.Services.Common.CQRS</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\UsersVoice.Services.Infrastructure.Common\UsersVoice.Services.Infrastructure.Common.csproj">
+      <Project>{E711AD99-5B71-415B-920E-FD05AC3AA7C8}</Project>
+      <Name>UsersVoice.Services.Infrastructure.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\UsersVoice.Services.Infrastructure.Mongo\UsersVoice.Services.Infrastructure.Mongo.csproj">
+      <Project>{5395D906-E7CE-44D2-9A48-789F38A0B989}</Project>
+      <Name>UsersVoice.Services.Infrastructure.Mongo</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\UsersVoice.Services.TagAPI.CQRS\UsersVoice.Services.TagAPI.CQRS.csproj">
+      <Project>{1B802633-1AD4-43DB-A857-76A7B6D472A2}</Project>
+      <Name>UsersVoice.Services.TagAPI.CQRS</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

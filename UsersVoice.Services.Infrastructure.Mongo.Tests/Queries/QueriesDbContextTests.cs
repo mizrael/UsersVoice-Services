@@ -12,7 +12,10 @@ namespace UsersVoice.Services.Infrastructure.Mongo.Tests.Queries
         {
             var mockFactory = new FakeMongoDatabaseFactory();
             var repoFactory = new RepositoryFactory(mockFactory);
-            var sut = new QueriesDbContext(repoFactory, @"lorem\ipsum");
+            var sut = new QueriesDbContext(repoFactory, @"mongodb://127.0.0.1/lorem");
+
+            sut.Tags.Should().NotBeNull();
+            sut.Tags.CollectionName.ShouldBeEquivalentTo("tags");
 
             sut.Users.Should().NotBeNull();
             sut.Users.CollectionName.ShouldBeEquivalentTo("users");

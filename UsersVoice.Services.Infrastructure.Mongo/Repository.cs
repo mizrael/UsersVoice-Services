@@ -47,6 +47,11 @@ namespace UsersVoice.Infrastructure.Mongo
             coll.Indexes.CreateOne(indexDefinition, options);
         }
 
+        public Task<long> CountAsync(Expression<Func<TEntity, bool>> filter)
+        {
+            return _collection.CountAsync(filter);
+        }
+
         public Task<long> CountAsync(FilterDefinition<TEntity> filter)
         {
             return _collection.CountAsync(filter);
