@@ -54,6 +54,7 @@
     <Compile Include="Events\UserTagRemoved.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Queries\Models\TagArchiveItem.cs" />
+    <Compile Include="Queries\TagDetailsQuery.cs" />
     <Compile Include="Queries\TagsArchiveQuery.cs" />
     <Compile Include="Validators\CreateTagCommandValidator.cs" />
   </ItemGroup>

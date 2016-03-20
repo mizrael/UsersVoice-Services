@@ -29,12 +29,6 @@ namespace UsersVoice.Services.TagAPI.CQRS.Mongo.Queries.QueryDefinitionFactories
             var filters = new List<FilterDefinition<Tag>>();
             var builder = Builders<Tag>.Filter;
 
-            if (query.TagId != Guid.Empty)
-            {
-                var idFilter = Builders<Tag>.Filter.Eq(i => i.Id, query.TagId);
-                filters.Add(idFilter);
-            }
-
             if (!string.IsNullOrWhiteSpace(query.Text))
             {
                 var expr = new BsonRegularExpression(new Regex(query.Text, RegexOptions.IgnoreCase));
@@ -52,8 +46,14 @@ namespace UsersVoice.Services.TagAPI.CQRS.Mongo.Queries.QueryDefinitionFactories
         {
             switch (sortBy)
             {
+                case TagSortBy.None:
+                    return null;
                 case TagSortBy.Text:
                     return (Tag i) => i.Text;
+                case TagSortBy.IdeasCount:
+                    return (Tag i) => i.IdeasCount;
+                case TagSortBy.UsersCount:
+                    return (Tag i) => i.UsersCount;
             }
             return null;
         }

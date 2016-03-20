@@ -9,4 +9,11 @@ namespace UsersVoice.Services.TagAPI.CQRS.Queries.Models
         public long IdeasCount { get; set; }
         public long UsersCount { get; set; }
     }
+
+    public class TagDetails : TagBase
+    {
+        public Guid Id { get; set; }
+        public long IdeasCount { get; set; }
+        public long UsersCount { get; set; }
+    }
 }

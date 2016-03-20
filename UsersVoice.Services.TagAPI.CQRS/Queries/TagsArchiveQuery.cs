@@ -12,9 +12,6 @@ namespace UsersVoice.Services.TagAPI.CQRS.Queries
         }
 
         public string Text { get; set; }
-
-        public Guid TagId { get; set; }
-
         public TagSortBy SortBy { get; set; }
         public SortDirection SortDirection { get; set; }
     }

@@ -6,7 +6,6 @@ using System.Reflection;
 using System.Threading.Tasks;
 using MediatR;
 using MongoDB.Driver;
-using MongoDB.Driver.Core.Configuration;
 using SimpleInjector;
 using UsersVoice.Infrastructure.Mongo;
 using UsersVoice.Infrastructure.Mongo.Commands;
@@ -18,6 +17,8 @@ using UsersVoice.Services.API.CQRS.Mongo.Commands.Handlers;
 using UsersVoice.Services.API.CQRS.Mongo.Events.Handlers;
 using UsersVoice.Services.Infrastructure.Common;
 using UsersVoice.Services.Infrastructure.Common.Services;
+using UsersVoice.Services.TagAPI.CQRS.Commands;
+using UsersVoice.Services.TagAPI.CQRS.Mongo.Commands.Handlers;
 
 namespace UsersVoice.TestDataFeeder
 {

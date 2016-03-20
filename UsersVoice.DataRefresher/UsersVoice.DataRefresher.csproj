@@ -4,15 +4,17 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{9DC78CF5-AD72-48C6-8DDE-F72DCDC78D87}</ProjectGuid>
-    <OutputType>Library</OutputType>
+    <ProjectGuid>{24BFFFDB-2392-4075-86E5-B2FBF5661822}</ProjectGuid>
+    <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>UsersVoice.Services.TagAPI.CQRS.Mongo</RootNamespace>
-    <AssemblyName>UsersVoice.Services.TagAPI.CQRS.Mongo</AssemblyName>
+    <RootNamespace>UsersVoice.DataRefresher</RootNamespace>
+    <AssemblyName>UsersVoice.DataRefresher</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -22,6 +24,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
@@ -46,7 +49,12 @@
       <HintPath>..\packages\MongoDB.Driver.Core.2.2.3\lib\net45\MongoDB.Driver.Core.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="SimpleInjector, Version=3.1.2.0, Culture=neutral, PublicKeyToken=984cb50dea722e99, processorArchitecture=MSIL">
+      <HintPath>..\packages\SimpleInjector.3.1.2\lib\net45\SimpleInjector.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -55,40 +63,42 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Commands\Handlers\CreateIdeaTagCommandHandler.cs" />
-    <Compile Include="Commands\Handlers\CreateTagCommandHandler.cs" />
-    <Compile Include="Commands\Handlers\CreateUserTagCommandHandler.cs" />
-    <Compile Include="Commands\Handlers\UpdateTagCommandHandler.cs" />
-    <Compile Include="Events\Handlers\IdeaTagCreatedEventHandler.cs" />
-    <Compile Include="Events\Handlers\TagUpsertedEventHandler.cs" />
-    <Compile Include="Events\Handlers\UpdateTagIdeasCountEventHandler.cs" />
-    <Compile Include="Events\Handlers\UpdateTagUsersCountEventHandler.cs" />
-    <Compile Include="Events\Handlers\UserTagCreatedEventHandler.cs" />
+    <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Queries\QueryDefinitionFactories\TagDetailsQueryDefinitionFactory.cs" />
-    <Compile Include="Queries\QueryDefinitionFactories\TagsArchiveQueryDefinitionFactory.cs" />
-    <Compile Include="Validators\CreateIdeaTagCommandValidator.cs" />
-    <Compile Include="Validators\CreateUserTagCommandValidator.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="app.config" />
+    <None Include="App.config" />
+    <None Include="config\connectionStrings.dev.config">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="config\connectionStrings.local.config">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\UsersVoice.Services.Common.CQRS\UsersVoice.Services.Common.CQRS.csproj">
-      <Project>{0FA09A37-B614-49F4-BCE5-BF6E14D7CB76}</Project>
+      <Project>{0fa09a37-b614-49f4-bce5-bf6e14d7cb76}</Project>
       <Name>UsersVoice.Services.Common.CQRS</Name>
     </ProjectReference>
     <ProjectReference Include="..\UsersVoice.Services.Infrastructure.Common\UsersVoice.Services.Infrastructure.Common.csproj">
-      <Project>{E711AD99-5B71-415B-920E-FD05AC3AA7C8}</Project>
+      <Project>{e711ad99-5b71-415b-920e-fd05ac3aa7c8}</Project>
       <Name>UsersVoice.Services.Infrastructure.Common</Name>
     </ProjectReference>
     <ProjectReference Include="..\UsersVoice.Services.Infrastructure.Mongo\UsersVoice.Services.Infrastructure.Mongo.csproj">
       <Project>{5395D906-E7CE-44D2-9A48-789F38A0B989}</Project>
       <Name>UsersVoice.Services.Infrastructure.Mongo</Name>
     </ProjectReference>
+    <ProjectReference Include="..\UsersVoice.Services.Infrastructure.Web\UsersVoice.Services.Infrastructure.Web.csproj">
+      <Project>{cbc7c08f-7dd5-4adc-95bb-f88a0f72e716}</Project>
+      <Name>UsersVoice.Services.Infrastructure.Web</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\UsersVoice.Services.TagAPI.CQRS.Mongo\UsersVoice.Services.TagAPI.CQRS.Mongo.csproj">
+      <Project>{9dc78cf5-ad72-48c6-8dde-f72dcdc78d87}</Project>
+      <Name>UsersVoice.Services.TagAPI.CQRS.Mongo</Name>
+    </ProjectReference>
     <ProjectReference Include="..\UsersVoice.Services.TagAPI.CQRS\UsersVoice.Services.TagAPI.CQRS.csproj">
-      <Project>{1B802633-1AD4-43DB-A857-76A7B6D472A2}</Project>
+      <Project>{1b802633-1ad4-43db-a857-76a7b6d472a2}</Project>
       <Name>UsersVoice.Services.TagAPI.CQRS</Name>
     </ProjectReference>
   </ItemGroup>
