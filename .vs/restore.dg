@@ -1,0 +1,4 @@
+#:E:\Sources\UsersVoice-Services\UsersVoice.Services.ContentAPI\UsersVoice.Services.ContentAPI.xproj
+E:\Sources\UsersVoice-Services\UsersVoice.Services.ContentAPI\UsersVoice.Services.ContentAPI.xproj|E:\Sources\UsersVoice-Services\UsersVoice.Services.ContentAPI.CQRS\UsersVoice.Services.ContentAPI.CQRS.xproj
+E:\Sources\UsersVoice-Services\UsersVoice.Services.ContentAPI.CQRS\UsersVoice.Services.ContentAPI.CQRS.xproj|E:\Sources\UsersVoice-Services\UsersVoice.Services.Common.CQRS\UsersVoice.Services.Common.CQRS.xproj
+E:\Sources\UsersVoice-Services\UsersVoice.Services.Common.CQRS\UsersVoice.Services.Common.CQRS.xproj|E:\Sources\UsersVoice-Services\UsersVoice.Services.Infrastructure.Common\UsersVoice.Services.Infrastructure.Common.xproj

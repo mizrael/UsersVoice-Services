@@ -1,0 +1,23 @@
+{
+  "dependencies": {
+    "dotnet-test-xunit": "2.2.0-preview2-build1029",
+    "FluentAssertions": "4.16.0",
+    "Moq": "4.6.38-alpha",
+    "UsersVoice.Services.Common.CQRS": "1.0.0-*",
+    "UsersVoice.Services.Infrastructure.Common": "1.0.0-*",
+    "UsersVoice.Services.Infrastructure.Mongo": "1.0.0-*",
+    "xunit": "2.2.0-beta4-build3444",
+    "xunit.runner.console": "2.2.0-beta4-build3444"
+  },
+  "frameworks": {
+    "netcoreapp1.0": {
+      "dependencies": {
+        "Microsoft.NETCore.App": {
+          "type": "platform",
+          "version": "1.0.0"
+        }
+      }
+    }
+  },
+  "testRunner": "xunit"
+}

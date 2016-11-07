@@ -13,7 +13,10 @@ namespace UsersVoice.Services.Infrastructure.Common.Services
 
         public string GenerateSlug(string phrase)
         {
-            var str = RemoveAccent(phrase).ToLower();
+            if (string.IsNullOrWhiteSpace(phrase))
+                return string.Empty;
+
+            var str = phrase.ToLower();
             // invalid chars           
             str = Regex.Replace(str, @"[^a-z0-9\s-]", "");
             // convert multiple spaces into one space   
@@ -23,12 +26,6 @@ namespace UsersVoice.Services.Infrastructure.Common.Services
                 str = str.Substring(0, str.Length <= _maxLength ? str.Length : _maxLength).Trim();
             str = Regex.Replace(str, @"\s", "-"); // hyphens   
             return str;
-        }
-
-        private string RemoveAccent(string txt)
-        {
-            byte[] bytes = System.Text.Encoding.GetEncoding("Cyrillic").GetBytes(txt);
-            return System.Text.Encoding.ASCII.GetString(bytes);
         }
     }
 }

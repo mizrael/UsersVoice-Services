@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
-using System.Web;
 using MediatR;
+using Microsoft.AspNetCore.Hosting;
 
 namespace UsersVoice.Services.ContentAPI.CQRS.Queries.Handlers
 {
@@ -12,12 +12,14 @@ namespace UsersVoice.Services.ContentAPI.CQRS.Queries.Handlers
     {
         private readonly IEnumerable<string> _imagePaths;
 
-        public UserAvatarQueryHandler(HttpContextBase httpContext)
+        public UserAvatarQueryHandler(IHostingEnvironment hostingEnvironment)
         {
-            if (httpContext == null) 
-                throw new ArgumentNullException("httpContext");
+            if (hostingEnvironment == null) 
+                throw new ArgumentNullException(nameof(hostingEnvironment));
 
-            var basePath = httpContext.Server.MapPath("~/app_data/userAvatars/");
+            var contentRootPath = hostingEnvironment.ContentRootPath;
+            var basePath = Path.Combine(contentRootPath, "assets\\userAvatars\\");
+
             _imagePaths = Directory.GetFiles(basePath, "*.jpg");
         }
 
