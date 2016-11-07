@@ -13,7 +13,6 @@ using Tag = UsersVoice.Infrastructure.Mongo.Commands.Entities.Tag;
 
 namespace UsersVoice.Services.Infrastructure.Mongo.Tests.Services
 {
-    [TestClass]
     public class TagSlugFinderTests
     {
         [Fact]
